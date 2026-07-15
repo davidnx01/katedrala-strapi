@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_shared_meta_rows",
+  "info": {
+    "displayName": "Meta Row",
+    "icon": "list",
+    "description": "Riadok s ikonou a textom (napr. rozpis, lokácia) pod textovým obsahom sekcie"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "enumeration",
+      "enum": [
+        "clock",
+        "map-pin",
+        "phone",
+        "mail",
+        "scroll-text",
+        "heart",
+        "droplets",
+        "book-open",
+        "flame",
+        "calendar",
+        "users"
+      ],
+      "required": true
+    },
+    "label": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_sections_galleries",
+  "info": {
+    "displayName": "Gallery",
+    "icon": "images",
+    "description": "Mriežka fotografií"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images"],
+      "required": true
+    }
+  }
+}

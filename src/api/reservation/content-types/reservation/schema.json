@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reservations",
+  "info": {
+    "singularName": "reservation",
+    "pluralName": "reservations",
+    "displayName": "Reservation",
+    "description": "Archív odoslaní z ReservationForm (rezervácia prehliadky/omše)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phone": {
+      "type": "string"
+    },
+    "preferredDate": {
+      "type": "date"
+    },
+    "groupSize": {
+      "type": "integer"
+    },
+    "note": {
+      "type": "text"
+    },
+    "locale": {
+      "type": "string"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["new", "confirmed", "cancelled"],
+      "default": "new"
+    }
+  }
+}

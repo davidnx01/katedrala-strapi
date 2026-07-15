@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_sections_cta_banners",
+  "info": {
+    "displayName": "CTA Banner",
+    "icon": "bulletList",
+    "description": "Zvýraznený pruh s nadpisom a jedným tlačidlom"
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "cta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.cta",
+      "required": true
+    }
+  }
+}

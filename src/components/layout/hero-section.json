@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_layout_hero_sections",
+  "info": {
+    "displayName": "Hero Section",
+    "icon": "picture",
+    "description": "Celostránkový hero banner (homepage)"
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"],
+      "required": true
+    },
+    "ctaPrimary": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.cta"
+    },
+    "ctaSecondary": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.cta"
+    }
+  }
+}

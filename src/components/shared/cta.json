@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_shared_ctas",
+  "info": {
+    "displayName": "CTA",
+    "icon": "cursor",
+    "description": "Tlačidlo/odkaz s výberom vizuálneho štýlu"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "href": {
+      "type": "string",
+      "required": true
+    },
+    "style": {
+      "type": "enumeration",
+      "enum": ["primary", "secondary", "outline"],
+      "default": "primary"
+    }
+  }
+}

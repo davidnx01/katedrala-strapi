@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_rich_texts",
+  "info": {
+    "displayName": "Rich Text",
+    "icon": "align-left",
+    "description": "Voľný textový blok (napr. história, informácie)"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "body": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}

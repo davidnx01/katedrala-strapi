@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_layout_quick_links",
+  "info": {
+    "displayName": "Quick Link",
+    "icon": "grid",
+    "description": "Ikona + odkaz (quick nav tile alebo homepage quick link karta)"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "string",
+      "required": true,
+      "description": "Meno lucide-react ikony, napr. 'scroll-text', 'heart'"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "ctaLabel": {
+      "type": "string"
+    },
+    "ctaUrl": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

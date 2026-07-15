@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_sections_churches_previews",
+  "info": {
+    "displayName": "Churches Preview",
+    "icon": "building",
+    "description": "Náhľad kostolov a kaplniek (dáta ťahané z Church kolekcie, nie statické)"
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "limit": {
+      "type": "integer",
+      "default": 4,
+      "min": 1,
+      "max": 20
+    },
+    "linkLabel": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "excursions",
+  "info": {
+    "singularName": "excursion",
+    "pluralName": "excursions",
+    "displayName": "Excursion",
+    "description": "Archív odoslaní z ExcursionForm (objednávka exkurzie pre skupiny)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phone": {
+      "type": "string"
+    },
+    "preferredDate": {
+      "type": "date"
+    },
+    "groupSize": {
+      "type": "integer"
+    },
+    "message": {
+      "type": "text"
+    },
+    "locale": {
+      "type": "string"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["new", "confirmed", "cancelled"],
+      "default": "new"
+    }
+  }
+}

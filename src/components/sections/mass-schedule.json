@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_sections_mass_schedules",
+  "info": {
+    "displayName": "Mass Schedule",
+    "icon": "clock",
+    "description": "Rozpis bohoslužieb s fotografiou (tmavá sekcia na homepage)"
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "location": {
+      "type": "string"
+    },
+    "note": {
+      "type": "text"
+    },
+    "schedule": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.mass-time",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

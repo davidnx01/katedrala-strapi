@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_sections_quick_navs",
+  "info": {
+    "displayName": "Quick Nav",
+    "icon": "grid",
+    "description": "Mriežka ikona+odkaz dlaždíc (napr. sekcie Farnosti)"
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "layout.quick-link",
+      "required": true
+    }
+  }
+}

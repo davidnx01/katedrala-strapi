@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_sections_contacts",
+  "info": {
+    "displayName": "Contacts",
+    "icon": "pinMap",
+    "description": "Blok kontaktných kariet (adresa/telefón/email/foto)"
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "locations": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.contact-location",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_shared_contact_locations",
+  "info": {
+    "displayName": "Contact Location",
+    "icon": "pinMap",
+    "description": "Jedna kontaktná lokácia (adresa, telefón, email, foto)"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "hours": {
+      "type": "string"
+    },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "iban": {
+      "type": "string"
+    }
+  }
+}

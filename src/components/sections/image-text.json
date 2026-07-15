@@ -1,0 +1,46 @@
+{
+  "collectionName": "components_sections_image_texts",
+  "info": {
+    "displayName": "Image + Text",
+    "icon": "layout",
+    "description": "Obrázok + text + voliteľné CTA a meta riadky (napr. Sobáš, Krst, Adorácia)"
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "body": {
+      "type": "richtext",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"],
+      "required": true
+    },
+    "cta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.cta"
+    },
+    "meta": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.meta-row"
+    },
+    "reverse": {
+      "type": "boolean",
+      "default": false
+    },
+    "tinted": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
