@@ -20,16 +20,16 @@ pnpm run start     ← produkčný beh (bez watch)
 
 ```
 src/
-  api/            ← content types: church, announcement, concert, page, reservation, excursion,
-                     contact-message, homepage, parish-page, visit-page, contact-page
+  api/            ← content types: church, announcement, concert, event, page, reservation, excursion,
+                     contact-message, homepage, parish-page, visit-page, contact-page, global
     <name>/
       content-types/<name>/schema.json
       controllers/<name>.ts   ← factories.createCoreController (boilerplate, no custom logic)
       routes/<name>.ts        ← factories.createCoreRouter
       services/<name>.ts      ← factories.createCoreService
   components/
-    shared/       ← seo, cta, meta-row, mass-time, contact-location, faq-item
-    layout/       ← hero-section, quick-link
+    shared/       ← seo, cta, meta-row, mass-time, hours-row, contact-location, faq-item
+    layout/       ← hero-section, quick-link, quick-link-card
     sections/     ← rich-text, image-text, cta-banner, gallery, faq, quick-nav,
                      mass-schedule, announcements-preview, churches-preview, contacts
   admin/          ← admin panel customizácie
@@ -56,15 +56,17 @@ Rovnaký princíp platí aj pre `Homepage` a `ParishPage` — obe majú vlastné
 | `shared.cta` | label, href, style (enum: primary/secondary/outline) |
 | `shared.meta-row` | icon (enum lucide-name), label |
 | `shared.mass-time` | dayLabel, times (json string[]), language (enum sk/en/hu) |
-| `shared.contact-location` | name, address, phone, email, hours, photo, description (richtext), iban |
+| `shared.hours-row` | dayLabel, time — jeden riadok otváracích hodín |
+| `shared.contact-location` | name, slug? (string, stabilný FE kľúč napr. pre mapové značky), address, city?, phone, email, hours (repeatable shared.hours-row), photo, description (richtext), iban, tags (json string[], len homepage kontaktné karty) |
 | `shared.faq-item` | question, answer (richtext) |
 
 ### Komponenty — `layout/` (štrukturálne, jeden účel)
 
 | Komponent | Polia |
 |---|---|
-| `layout.hero-section` | eyebrow, title, subtitle, image, ctaPrimary (shared.cta), ctaSecondary (shared.cta) |
-| `layout.quick-link` | icon (string, lucide meno), title, description, ctaLabel, ctaUrl |
+| `layout.hero-section` | eyebrow, titleLine1, titleLine2, titleEmphasis (3 časti nadpisu — riadkovanie + tučné zvýraznenie), subtitle, images (media, multiple — 2+ fotky pre Ken Burns crossfade slideshow), ctaPrimary (shared.cta), ctaSecondary (shared.cta) |
+| `layout.quick-link` | icon (string, lucide meno), title, description, ctaLabel, ctaUrl — používa sa v `sections.quick-nav` (Farnosť hub) |
+| `layout.quick-link-card` | icon, title, image (media), href — homepage quick links karty s fotkou na pozadí (Katedrála/Farnosť/Návšteva/Kontakt) |
 
 ### Komponenty — `sections/` (dynamic-zone-eligible, kompozovateľný obsah)
 
@@ -75,7 +77,7 @@ Rovnaký princíp platí aj pre `Homepage` a `ParishPage` — obe majú vlastné
 | `sections.cta-banner` | eyebrow, title, subtitle, cta (shared.cta) | Page, VisitPage, ContactPage |
 | `sections.gallery` | title?, images (media[]) | Page, VisitPage |
 | `sections.faq` | eyebrow, title, items (shared.faq-item[]) | Page, ParishPage, VisitPage, ContactPage |
-| `sections.quick-nav` | eyebrow, items (layout.quick-link[]) | Homepage, ParishPage |
+| `sections.quick-nav` | eyebrow, items (layout.quick-link[]) | ParishPage |
 | `sections.mass-schedule` | eyebrow, title, location, note, schedule (shared.mass-time[]), image? | Homepage, Page |
 | `sections.announcements-preview` | eyebrow, title, limit (int, default 3), linkLabel | Homepage, ParishPage — **dáta ťahané naživo z `Announcement`, nie statický obsah** |
 | `sections.churches-preview` | eyebrow, title, limit (int, default 4), linkLabel | Homepage — dáta ťahané naživo z `Church` |
@@ -130,11 +132,29 @@ sections: dynamiczone [rich-text, image-text, cta-banner, gallery, faq, mass-sch
 seo: component shared.seo, localized
 ```
 
+**Event** (`api::event.event`) — udalosti pre kalendár na homepage (sväté omše, koncerty, sviatky, prehliadky, stretnutia...)
+```
+title: string, required, localized
+date: date, required, NOT localized
+description: text, localized
+href: string, NOT localized — relatívna cesta na súvisiaci obsah (napr. /farnost/oznamy/15-nedela)
+```
+
 **Reservation / Excursion / ContactMessage** — archív odoslaní formulárov (ReservationForm/ExcursionForm/ContactForm), `draftAndPublish: false`, **bez i18n** (transakčné záznamy, nie editoriálny obsah — len plain `locale` string pole pre kontext). `status` enum na triedenie v adminovi. Zapisujú sa cez samostatný write-only token (pozri Bezpečnosť).
 
 ### Single types
 
-**Homepage** — `hero` (layout.hero-section, required) + `sections` dynamic zone [quick-nav, announcements-preview, mass-schedule, churches-preview, contacts] + `seo`
+**Homepage** — `hero` (layout.hero-section, required) + `quickLinks` (layout.quick-link-card repeatable — 4 karty s fotkou, štrukturálne pole mimo dynamic zone) + `sections` dynamic zone [announcements-preview, mass-schedule, churches-preview, contacts] + `seo`
+
+**Global** (`api::global.global`) — celosite nastavenia
+```
+siteName: string, required, localized — napr. "Katedrála sv. Martina", používa Header aj Footer
+siteTagline: string, localized — napr. "Bratislava"
+footerTagline: text, localized — popisný text vo footeri pod logom
+diocese: string, localized — napr. "Bratislavská arcidiecéza", spodný riadok footera
+seo: component shared.seo, localized — fallback SEO pre stránky bez vlastného seo poľa
+```
+Navigácia (5 hlavných + footer odkazy) a ich `href`-y zostávajú **fixné v kóde** (`web/CLAUDE.md` Navigácia sekcia) — mení sa len obsah/text cez i18n, nie štruktúra. Kontaktné údaje vo footeri (adresa/telefón/email) sa pri napájaní na Strapi preberajú z `ContactPage.locations[0]`, nie z vlastného poľa — nekopíruj tie isté údaje na 2 miesta.
 
 **ParishPage** (`/farnost`) — `heroEyebrow`, `heroTitle`, `heroImage` + `sections` dynamic zone [quick-nav, announcements-preview, image-text, rich-text, faq] + `seo`. Sobáš/Krst/Lectio divina/Adorácia = `image-text` položky v `sections`.
 
@@ -153,7 +173,7 @@ Všetky content types majú `pluginOptions.i18n.localized: true` na úrovni typu
   - Vytvor v Settings → API Tokens. Hodnoty nikdy necommitovať — len v `.env` (negitované), vzor v `.env.example`.
 - **Upload security** (`config/plugins.ts`) — `allowedTypes`/`deniedTypes` už obmedzujú nahrávané typy súborov (žiadne spustiteľné/skriptové typy).
 - **Public role permissions** (Settings → Users & Permissions → Roles → Public) — treba nastaviť manuálne po prvom spustení:
-  - `find` + `findOne`: `church`, `announcement`, `concert`, `page`, `homepage`, `parish-page`, `visit-page`, `contact-page`
+  - `find` + `findOne`: `church`, `announcement`, `concert`, `event`, `page`, `homepage`, `parish-page`, `visit-page`, `contact-page`, `global`
   - `create` **only** (žiadne find): `reservation`, `excursion`, `contact-message` — a aj to len cez `STRAPI_FORMS_TOKEN`, nie cez anonymný Public prístup, ak je to možné obmedziť len na autentifikované API tokeny v produkcii.
   - Žiadny content type nesmie mať pre Public povolené `update`/`delete`.
 - **Rate limiting** — Community edition nemá vstavaný rate limiter; pri produkčnom nasadení zvážiť reverse proxy (Nginx/Cloudflare) throttling pred `/api/*`, hlavne na `create` endpointy formulárov (ochrana pred spamom).
@@ -167,7 +187,7 @@ Locales sa nezakladajú cez schému, ale cez admin: Settings → Internationaliz
 
 ## On-demand revalidation webhook
 
-Settings → Webhooks → nový webhook pre každý content type (`church`, `announcement`, `concert`, `page`, `homepage`, `parish-page`, `visit-page`, `contact-page`):
+Settings → Webhooks → nový webhook pre každý content type (`church`, `announcement`, `concert`, `event`, `page`, `homepage`, `parish-page`, `visit-page`, `contact-page`, `global`):
 - URL: `{FRONTEND_URL}/api/revalidate`
 - Events: `Entry publish`, `Entry unpublish`, `Entry update`, `Entry delete`
 - Header: `x-revalidate-secret: {REVALIDATE_SECRET}` (rovnaká hodnota ako `web/.env` `REVALIDATE_SECRET`)

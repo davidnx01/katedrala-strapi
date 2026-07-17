@@ -3,7 +3,7 @@ import type { Schema, Struct } from '@strapi/strapi';
 export interface LayoutHeroSection extends Struct.ComponentSchema {
   collectionName: 'components_layout_hero_sections';
   info: {
-    description: 'Celostr\u00E1nkov\u00FD hero banner (homepage)';
+    description: 'Celostr\u00E1nkov\u00FD hero banner so slideshow efektom (homepage)';
     displayName: 'Hero Section';
     icon: 'picture';
   };
@@ -11,9 +11,11 @@ export interface LayoutHeroSection extends Struct.ComponentSchema {
     ctaPrimary: Schema.Attribute.Component<'shared.cta', false>;
     ctaSecondary: Schema.Attribute.Component<'shared.cta', false>;
     eyebrow: Schema.Attribute.String;
-    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    images: Schema.Attribute.Media<'images', true> & Schema.Attribute.Required;
     subtitle: Schema.Attribute.Text;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
+    titleEmphasis: Schema.Attribute.String & Schema.Attribute.Required;
+    titleLine1: Schema.Attribute.String & Schema.Attribute.Required;
+    titleLine2: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -29,6 +31,21 @@ export interface LayoutQuickLink extends Struct.ComponentSchema {
     ctaUrl: Schema.Attribute.String & Schema.Attribute.Required;
     description: Schema.Attribute.Text;
     icon: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface LayoutQuickLinkCard extends Struct.ComponentSchema {
+  collectionName: 'components_layout_quick_link_cards';
+  info: {
+    description: 'Homepage quick link karta s fotkou na pozad\u00ED (Katedr\u00E1la/Farnos\u0165/N\u00E1v\u0161teva/Kontakt)';
+    displayName: 'Quick Link Card';
+    icon: 'grid';
+  };
+  attributes: {
+    href: Schema.Attribute.String & Schema.Attribute.Required;
+    icon: Schema.Attribute.String & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -205,19 +222,22 @@ export interface SectionsRichText extends Struct.ComponentSchema {
 export interface SharedContactLocation extends Struct.ComponentSchema {
   collectionName: 'components_shared_contact_locations';
   info: {
-    description: 'Jedna kontaktn\u00E1 lok\u00E1cia (adresa, telef\u00F3n, email, foto)';
+    description: 'Jedna kontaktn\u00E1 lok\u00E1cia (adresa, telef\u00F3n, email, foto, hodiny)';
     displayName: 'Contact Location';
     icon: 'pinMap';
   };
   attributes: {
     address: Schema.Attribute.String & Schema.Attribute.Required;
+    city: Schema.Attribute.String;
     description: Schema.Attribute.RichText;
     email: Schema.Attribute.Email;
-    hours: Schema.Attribute.String;
+    hours: Schema.Attribute.Component<'shared.hours-row', true>;
     iban: Schema.Attribute.String;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     phone: Schema.Attribute.String;
     photo: Schema.Attribute.Media<'images'>;
+    slug: Schema.Attribute.String;
+    tags: Schema.Attribute.JSON;
   };
 }
 
@@ -246,6 +266,19 @@ export interface SharedFaqItem extends Struct.ComponentSchema {
   attributes: {
     answer: Schema.Attribute.RichText & Schema.Attribute.Required;
     question: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface SharedHoursRow extends Struct.ComponentSchema {
+  collectionName: 'components_shared_hours_rows';
+  info: {
+    description: 'Jeden riadok otv\u00E1rac\u00EDch hod\u00EDn (de\u0148/dni + \u010Das)';
+    displayName: 'Hours Row';
+    icon: 'clock';
+  };
+  attributes: {
+    dayLabel: Schema.Attribute.String & Schema.Attribute.Required;
+    time: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -318,6 +351,7 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'layout.hero-section': LayoutHeroSection;
       'layout.quick-link': LayoutQuickLink;
+      'layout.quick-link-card': LayoutQuickLinkCard;
       'sections.announcements-preview': SectionsAnnouncementsPreview;
       'sections.churches-preview': SectionsChurchesPreview;
       'sections.contacts': SectionsContacts;
@@ -331,6 +365,7 @@ declare module '@strapi/strapi' {
       'shared.contact-location': SharedContactLocation;
       'shared.cta': SharedCta;
       'shared.faq-item': SharedFaqItem;
+      'shared.hours-row': SharedHoursRow;
       'shared.mass-time': SharedMassTime;
       'shared.meta-row': SharedMetaRow;
       'shared.seo': SharedSeo;

@@ -21,10 +21,15 @@
       "required": true,
       "pluginOptions": { "i18n": { "localized": true } }
     },
+    "quickLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "layout.quick-link-card",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
     "sections": {
       "type": "dynamiczone",
       "components": [
-        "sections.quick-nav",
         "sections.announcements-preview",
         "sections.mass-schedule",
         "sections.churches-preview",

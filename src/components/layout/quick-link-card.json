@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_layout_quick_link_cards",
+  "info": {
+    "displayName": "Quick Link Card",
+    "icon": "grid",
+    "description": "Homepage quick link karta s fotkou na pozadí (Katedrála/Farnosť/Návšteva/Kontakt)"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "string",
+      "required": true,
+      "description": "Meno lucide-react ikony, napr. 'phone'. Pre Katedrála/Farnosť/Návšteva sa aktuálne používajú vlastné SVG ikony (IconCathedral/IconHands/IconTourist) mapované podľa poradia karty vo frontende."
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"],
+      "required": true
+    },
+    "href": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

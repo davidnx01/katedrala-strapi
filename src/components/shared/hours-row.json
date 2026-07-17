@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_shared_hours_rows",
+  "info": {
+    "displayName": "Hours Row",
+    "icon": "clock",
+    "description": "Jeden riadok otváracích hodín (deň/dni + čas)"
+  },
+  "options": {},
+  "attributes": {
+    "dayLabel": {
+      "type": "string",
+      "required": true
+    },
+    "time": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

@@ -3,7 +3,7 @@
   "info": {
     "displayName": "Contact Location",
     "icon": "pinMap",
-    "description": "Jedna kontaktná lokácia (adresa, telefón, email, foto)"
+    "description": "Jedna kontaktná lokácia (adresa, telefón, email, foto, hodiny)"
   },
   "options": {},
   "attributes": {
@@ -11,9 +11,17 @@
       "type": "string",
       "required": true
     },
+    "slug": {
+      "type": "string",
+      "description": "Stabilný kľúč pre frontend (napr. mapové značky) — plain string, nie uid, keďže komponenty nemajú vlastný content-type na target field."
+    },
     "address": {
       "type": "string",
       "required": true
+    },
+    "city": {
+      "type": "string",
+      "description": "Napr. '811 01 Bratislava' — samostatné pole od address kvôli formátovaniu na dvoch riadkoch a mapovému query."
     },
     "phone": {
       "type": "string"
@@ -22,7 +30,9 @@
       "type": "email"
     },
     "hours": {
-      "type": "string"
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.hours-row"
     },
     "photo": {
       "type": "media",
@@ -34,6 +44,10 @@
     },
     "iban": {
       "type": "string"
+    },
+    "tags": {
+      "type": "json",
+      "description": "String[] of short labels shown as chips over the photo on the homepage contacts section (e.g. [\"Hlavný chrám farnosti\", \"Sväté omše\"]). Not used on the /kontakt page."
     }
   }
 }

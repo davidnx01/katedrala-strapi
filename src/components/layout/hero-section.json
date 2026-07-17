@@ -3,25 +3,37 @@
   "info": {
     "displayName": "Hero Section",
     "icon": "picture",
-    "description": "Celostránkový hero banner (homepage)"
+    "description": "Celostránkový hero banner so slideshow efektom (homepage)"
   },
   "options": {},
   "attributes": {
     "eyebrow": {
       "type": "string"
     },
-    "title": {
+    "titleLine1": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Prvý riadok nadpisu, napr. 'Korunovačná'"
+    },
+    "titleLine2": {
+      "type": "string",
+      "required": true,
+      "description": "Druhý riadok nadpisu pred zvýrazneným slovom, napr. 'katedrála'"
+    },
+    "titleEmphasis": {
+      "type": "string",
+      "required": true,
+      "description": "Tučne zvýraznená časť nadpisu na konci druhého riadku, napr. 'sv. Martina'"
     },
     "subtitle": {
       "type": "text"
     },
-    "image": {
+    "images": {
       "type": "media",
-      "multiple": false,
+      "multiple": true,
       "allowedTypes": ["images"],
-      "required": true
+      "required": true,
+      "description": "2+ fotky pre Ken Burns crossfade slideshow — striedajú sa každých 6 sekúnd"
     },
     "ctaPrimary": {
       "type": "component",

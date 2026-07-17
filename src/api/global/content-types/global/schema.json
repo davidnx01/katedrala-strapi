@@ -1,0 +1,46 @@
+{
+  "kind": "singleType",
+  "collectionName": "globals",
+  "info": {
+    "singularName": "global",
+    "pluralName": "globals",
+    "displayName": "Global",
+    "description": "Celosite nastavenia — brand názov, footer texty. Navigácia a footer odkazy zostávajú fixné v kóde (pozri web/CLAUDE.md Navigácia)."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": { "localized": true }
+  },
+  "attributes": {
+    "siteName": {
+      "type": "string",
+      "required": true,
+      "description": "Napr. 'Katedrála sv. Martina' — používa sa v Header aj Footer",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "siteTagline": {
+      "type": "string",
+      "description": "Krátky podnadpis pod menom, napr. 'Bratislava'",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "footerTagline": {
+      "type": "text",
+      "description": "Dlhší popisný text vo footeri pod logom",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "diocese": {
+      "type": "string",
+      "description": "Napr. 'Bratislavská arcidiecéza' — spodný riadok footera",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo",
+      "description": "Fallback SEO pre stránky bez vlastného seo poľa",
+      "pluginOptions": { "i18n": { "localized": true } }
+    }
+  }
+}
