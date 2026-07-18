@@ -4,7 +4,7 @@
   "info": {
     "singularName": "event",
     "pluralName": "events",
-    "displayName": "Event",
+    "displayName": "Udalosti (kalendár)",
     "description": "Udalosti pre kalendár na homepage (sväté omše, koncerty, sviatky, prehliadky, stretnutia...)"
   },
   "options": {

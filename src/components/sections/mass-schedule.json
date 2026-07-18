@@ -1,7 +1,7 @@
 {
   "collectionName": "components_sections_mass_schedules",
   "info": {
-    "displayName": "Mass Schedule",
+    "displayName": "Rozpis bohoslužieb",
     "icon": "clock",
     "description": "Rozpis bohoslužieb s fotografiou (tmavá sekcia na homepage)"
   },

@@ -4,7 +4,7 @@
   "info": {
     "singularName": "concert",
     "pluralName": "concerts",
-    "displayName": "Concert",
+    "displayName": "Koncerty",
     "description": "Koncerty a kultúrne podujatia"
   },
   "options": {

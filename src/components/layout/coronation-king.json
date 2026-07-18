@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_layout_coronation_kings",
+  "info": {
+    "displayName": "Korunovaný panovník",
+    "icon": "crown",
+    "description": "Jeden riadok v zozname korunovaných panovníkov (meno + rok)"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "year": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_layout_stat_items",
+  "info": {
+    "displayName": "Štatistika (číslo + popis)",
+    "icon": "chartBubble",
+    "description": "Jedna položka v štatistickom paneli (napr. „1452“ / „rok založenia katedrály“)"
+  },
+  "options": {},
+  "attributes": {
+    "value": {
+      "type": "string",
+      "required": true
+    },
+    "label": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

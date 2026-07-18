@@ -21,7 +21,7 @@ pnpm run start     ← produkčný beh (bez watch)
 ```
 src/
   api/            ← content types: church, announcement, concert, event, page, reservation, excursion,
-                     contact-message, homepage, parish-page, visit-page, contact-page, global
+                     contact-message, homepage, parish-page, visit-page, contact-page, history-page, global
     <name>/
       content-types/<name>/schema.json
       controllers/<name>.ts   ← factories.createCoreController (boilerplate, no custom logic)
@@ -67,6 +67,13 @@ Rovnaký princíp platí aj pre `Homepage` a `ParishPage` — obe majú vlastné
 | `layout.hero-section` | eyebrow, titleLine1, titleLine2, titleEmphasis (3 časti nadpisu — riadkovanie + tučné zvýraznenie), subtitle, images (media, multiple — 2+ fotky pre Ken Burns crossfade slideshow), ctaPrimary (shared.cta), ctaSecondary (shared.cta) |
 | `layout.quick-link` | icon (string, lucide meno), title, description, ctaLabel, ctaUrl — používa sa v `sections.quick-nav` (Farnosť hub) |
 | `layout.quick-link-card` | icon, title, image (media), href — homepage quick links karty s fotkou na pozadí (Katedrála/Farnosť/Návšteva/Kontakt) |
+| `layout.stat-item` | value, label — jedna položka v štatistickom paneli (napr. „1452“ / „rok založenia katedrály“), používa VisitPage.stats |
+| `layout.icon-card` | icon (enum: ticket/headphones/gift/gallery), title, description — karta v mriežke služieb, používa VisitPage.services |
+| `layout.journey-step` | title, description, image — jeden krok v sekcii „Cesta návštevníka“, používa VisitPage.journeySteps |
+| `layout.ticket-row` | label, price — jeden riadok cenníka vstupného, používa VisitPage.tickets |
+| `layout.restriction-item` | icon (string, jedno emoji), text — jedno pravidlo/obmedzenie, používa VisitPage.restrictions |
+| `layout.timeline-event` | year, title, description — jedna udalosť na časovej osi, používa HistoryPage.timelineEvents |
+| `layout.coronation-king` | name, year — jeden riadok zoznamu korunovaných panovníkov, používa HistoryPage.coronationsKings |
 
 ### Komponenty — `sections/` (dynamic-zone-eligible, kompozovateľný obsah)
 
@@ -158,9 +165,36 @@ Navigácia (5 hlavných + footer odkazy) a ich `href`-y zostávajú **fixné v k
 
 **ParishPage** (`/farnost`) — `heroEyebrow`, `heroTitle`, `heroImage` + `sections` dynamic zone [quick-nav, announcements-preview, image-text, rich-text, faq] + `seo`. Sobáš/Krst/Lectio divina/Adorácia = `image-text` položky v `sections`.
 
-**VisitPage** (`/navsteva`) — `heroEyebrow`, `heroTitle`, `heroImage`, `mainSquareUrl`, `walletCardUrl`, `qrCodeReservation`, `qrCodeWallet` (MainSquare/QCode integrácia, pozri `web/CLAUDE.md`) + `sections` dynamic zone [rich-text, image-text, cta-banner, faq, gallery] + `seo`
+**VisitPage** (`/navsteva`) — pevné polia (nie dynamic-zone modulárna stránka, poradie sekcií je fixné v kóde `web/app/[locale]/navsteva/page.tsx`):
+```
+heroEyebrow, heroTitle, heroTitleEmphasis (zvýraznené slovo v titulku), heroSubtitle, heroImage,
+heroCtaPrimaryLabel, heroCtaSecondaryLabel (href oboch tlačidiel je fixný #anchor v kóde, nie CMS pole)
+stats: component repeatable layout.stat-item (štatistický panel, 4 položky)
+martineumEyebrow, martineumTitle, martineumBody (richtext), martineumAwards (string, čiarkou oddelené), martineumImages (media, multiple)
+servicesEyebrow, servicesTitle, services: component repeatable layout.icon-card
+journeyEyebrow, journeyTitle, journeySteps: component repeatable layout.journey-step
+cellarsEyebrow, cellarsTitle, cellarsBody (richtext), cellarsImage, cellarsCtaLabel (href fixný v kóde)
+practicalEyebrow, practicalTitle, hours: component repeatable shared.hours-row (reused), tickets: component repeatable layout.ticket-row
+reservationTitle, reservationBody, reservationCtaLabel (href = mainSquareUrl)
+restrictionsEyebrow, restrictionsTitle, restrictions: component repeatable layout.restriction-item
+mainSquareUrl, walletCardUrl, qrCodeReservation, qrCodeWallet (MainSquare/QCode integrácia, pozri `web/CLAUDE.md`)
+sections: dynamic zone [rich-text, image-text, cta-banner, faq, gallery] — ponechaná pre budúci voľný obsah, momentálne nepoužitá na /navsteva
+seo
+```
 
 **ContactPage** (`/kontakt`) — `heroEyebrow`, `heroTitle`, `locations` (shared.contact-location repeatable) + `sections` dynamic zone [rich-text, cta-banner, faq] + `seo`
+
+**HistoryPage** (`/historia`) — pevné polia (rovnaký prístup ako VisitPage — nie dynamic-zone stránka, poradie sekcií fixné v kóde `web/app/[locale]/historia/page.tsx`). Odkazuje naň karta „Korunovácie“ v Homepage.quickLinks.
+```
+heroEyebrow, heroTitle, heroTitleEmphasis, heroSubtitle, heroImage
+timelineEyebrow, timelineTitle, timelineEvents: component repeatable layout.timeline-event
+coronationsEyebrow, coronationsTitle, coronationsBody (richtext), coronationsListLabel, coronationsKings: component repeatable layout.coronation-king
+historyEyebrow, historyTitle, historyBody (richtext), historyImages (media, multiple — 3 fotky)
+chapelEyebrow, chapelTitle, chapelBody (richtext), chapelImage
+kapitulskaEyebrow, kapitulskaTitle, kapitulskaBody (richtext), kapitulskaImages (media, multiple — 2 fotky)
+todayEyebrow, todayTitle, todayBody, todayCtaPrimaryLabel (href fixný /navsteva), todayCtaSecondaryLabel (href fixný /kostoly)
+seo
+```
 
 Všetky content types majú `pluginOptions.i18n.localized: true` na úrovni typu; pri jednotlivých poliach je localized explicitne `false` tam, kde sa hodnota nemá prekladať (telefón, email, médiá, súradnice, poradie).
 
@@ -173,7 +207,7 @@ Všetky content types majú `pluginOptions.i18n.localized: true` na úrovni typu
   - Vytvor v Settings → API Tokens. Hodnoty nikdy necommitovať — len v `.env` (negitované), vzor v `.env.example`.
 - **Upload security** (`config/plugins.ts`) — `allowedTypes`/`deniedTypes` už obmedzujú nahrávané typy súborov (žiadne spustiteľné/skriptové typy).
 - **Public role permissions** (Settings → Users & Permissions → Roles → Public) — treba nastaviť manuálne po prvom spustení:
-  - `find` + `findOne`: `church`, `announcement`, `concert`, `event`, `page`, `homepage`, `parish-page`, `visit-page`, `contact-page`, `global`
+  - `find` + `findOne`: `church`, `announcement`, `concert`, `event`, `page`, `homepage`, `parish-page`, `visit-page`, `contact-page`, `history-page`, `global`
   - `create` **only** (žiadne find): `reservation`, `excursion`, `contact-message` — a aj to len cez `STRAPI_FORMS_TOKEN`, nie cez anonymný Public prístup, ak je to možné obmedziť len na autentifikované API tokeny v produkcii.
   - Žiadny content type nesmie mať pre Public povolené `update`/`delete`.
 - **Rate limiting** — Community edition nemá vstavaný rate limiter; pri produkčnom nasadení zvážiť reverse proxy (Nginx/Cloudflare) throttling pred `/api/*`, hlavne na `create` endpointy formulárov (ochrana pred spamom).
@@ -187,7 +221,7 @@ Locales sa nezakladajú cez schému, ale cez admin: Settings → Internationaliz
 
 ## On-demand revalidation webhook
 
-Settings → Webhooks → nový webhook pre každý content type (`church`, `announcement`, `concert`, `event`, `page`, `homepage`, `parish-page`, `visit-page`, `contact-page`, `global`):
+Settings → Webhooks → nový webhook pre každý content type (`church`, `announcement`, `concert`, `event`, `page`, `homepage`, `parish-page`, `visit-page`, `contact-page`, `history-page`, `global`):
 - URL: `{FRONTEND_URL}/api/revalidate`
 - Events: `Entry publish`, `Entry unpublish`, `Entry update`, `Entry delete`
 - Header: `x-revalidate-secret: {REVALIDATE_SECRET}` (rovnaká hodnota ako `web/.env` `REVALIDATE_SECRET`)

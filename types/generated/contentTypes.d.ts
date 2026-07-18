@@ -236,6 +236,7 @@ export interface AdminSession extends Struct.CollectionTypeSchema {
   };
   attributes: {
     absoluteExpiresAt: Schema.Attribute.DateTime & Schema.Attribute.Private;
+    childId: Schema.Attribute.String & Schema.Attribute.Private;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -245,7 +246,6 @@ export interface AdminSession extends Struct.CollectionTypeSchema {
     expiresAt: Schema.Attribute.DateTime &
       Schema.Attribute.Required &
       Schema.Attribute.Private;
-    childId: Schema.Attribute.String & Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'admin::session'> &
       Schema.Attribute.Private;
@@ -446,7 +446,7 @@ export interface ApiAnnouncementAnnouncement
   collectionName: 'announcements';
   info: {
     description: 'Farsk\u00E9 oznamy';
-    displayName: 'Announcement';
+    displayName: 'Farsk\u00E9 oznamy';
     pluralName: 'announcements';
     singularName: 'announcement';
   };
@@ -512,7 +512,7 @@ export interface ApiChurchChurch extends Struct.CollectionTypeSchema {
   collectionName: 'churches';
   info: {
     description: 'Kostoly a kaplnky na \u00FAzem\u00ED farnosti';
-    displayName: 'Church';
+    displayName: 'Kostoly a kaplnky';
     pluralName: 'churches';
     singularName: 'church';
   };
@@ -642,7 +642,7 @@ export interface ApiConcertConcert extends Struct.CollectionTypeSchema {
   collectionName: 'concerts';
   info: {
     description: 'Koncerty a kult\u00FArne podujatia';
-    displayName: 'Concert';
+    displayName: 'Koncerty';
     pluralName: 'concerts';
     singularName: 'concert';
   };
@@ -714,7 +714,7 @@ export interface ApiContactMessageContactMessage
   collectionName: 'contact_messages';
   info: {
     description: 'Arch\u00EDv odoslan\u00ED z ContactForm';
-    displayName: 'Contact Message';
+    displayName: 'Spr\u00E1vy z kontaktn\u00E9ho formul\u00E1ra';
     pluralName: 'contact-messages';
     singularName: 'contact-message';
   };
@@ -748,7 +748,7 @@ export interface ApiContactPageContactPage extends Struct.SingleTypeSchema {
   collectionName: 'contact_pages';
   info: {
     description: 'Str\u00E1nka Kontakt (/kontakt)';
-    displayName: 'Contact Page';
+    displayName: 'Str\u00E1nka: Kontakt';
     pluralName: 'contact-pages';
     singularName: 'contact-page';
   };
@@ -813,7 +813,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
   collectionName: 'events';
   info: {
     description: 'Udalosti pre kalend\u00E1r na homepage (sv\u00E4t\u00E9 om\u0161e, koncerty, sviatky, prehliadky, stretnutia...)';
-    displayName: 'Event';
+    displayName: 'Udalosti (kalend\u00E1r)';
     pluralName: 'events';
     singularName: 'event';
   };
@@ -868,7 +868,7 @@ export interface ApiExcursionExcursion extends Struct.CollectionTypeSchema {
   collectionName: 'excursions';
   info: {
     description: 'Arch\u00EDv odoslan\u00ED z ExcursionForm (objedn\u00E1vka exkurzie pre skupiny)';
-    displayName: 'Excursion';
+    displayName: 'Objedn\u00E1vky exkurzi\u00ED';
     pluralName: 'excursions';
     singularName: 'excursion';
   };
@@ -904,7 +904,7 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
     description: 'Celosite nastavenia \u2014 brand n\u00E1zov, footer texty. Navig\u00E1cia a footer odkazy zost\u00E1vaj\u00FA fixn\u00E9 v k\u00F3de (pozri web/CLAUDE.md Navig\u00E1cia).';
-    displayName: 'Global';
+    displayName: 'Glob\u00E1lne nastavenia';
     pluralName: 'globals';
     singularName: 'global';
   };
@@ -960,11 +960,233 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiHistoryPageHistoryPage extends Struct.SingleTypeSchema {
+  collectionName: 'history_pages';
+  info: {
+    description: 'Str\u00E1nka /historia \u2014 dejiny katedr\u00E1ly, korunov\u00E1cie, Kapitulsk\u00E1 ulica';
+    displayName: 'Str\u00E1nka: Hist\u00F3ria';
+    pluralName: 'history-pages';
+    singularName: 'history-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    chapelBody: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    chapelEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    chapelImage: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    chapelTitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    coronationsBody: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    coronationsEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    coronationsKings: Schema.Attribute.Component<
+      'layout.coronation-king',
+      true
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    coronationsListLabel: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    coronationsTitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    heroEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    heroImage: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    heroSubtitle: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    heroTitle: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    heroTitleEmphasis: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    historyBody: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    historyEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    historyImages: Schema.Attribute.Media<'images', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    historyTitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    kapitulskaBody: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    kapitulskaEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    kapitulskaImages: Schema.Attribute.Media<'images', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    kapitulskaTitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::history-page.history-page'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    timelineEvents: Schema.Attribute.Component<'layout.timeline-event', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    timelineEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    timelineTitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    todayBody: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    todayCtaPrimaryLabel: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    todayCtaSecondaryLabel: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    todayEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    todayTitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   collectionName: 'homepages';
   info: {
     description: 'Domovsk\u00E1 str\u00E1nka';
-    displayName: 'Homepage';
+    displayName: 'Domovsk\u00E1 str\u00E1nka';
     pluralName: 'homepages';
     singularName: 'homepage';
   };
@@ -1028,7 +1250,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
   collectionName: 'pages';
   info: {
     description: 'Generick\u00E1 flexibiln\u00E1 str\u00E1nka poskladan\u00E1 zo sekci\u00ED (Kapitulsk\u00E1 ulica, Martineum, Sprievodca, Audioguides, Exkurzia, Om\u0161a s k\u0148azom, ...)';
-    displayName: 'Page';
+    displayName: '\u010Eal\u0161ie str\u00E1nky';
     pluralName: 'pages';
     singularName: 'page';
   };
@@ -1104,7 +1326,7 @@ export interface ApiParishPageParishPage extends Struct.SingleTypeSchema {
   collectionName: 'parish_pages';
   info: {
     description: 'Hub str\u00E1nka Farnos\u0165 (/farnost) \u2014 sekcie sviatost\u00ED s\u00FA s\u00FA\u010Das\u0165ou sections dynamic zone priamo na tejto str\u00E1nke, nie samostatn\u00E9 podstr\u00E1nky';
-    displayName: 'Parish Page';
+    displayName: 'Str\u00E1nka: Farnos\u0165';
     pluralName: 'parish-pages';
     singularName: 'parish-page';
   };
@@ -1175,7 +1397,7 @@ export interface ApiReservationReservation extends Struct.CollectionTypeSchema {
   collectionName: 'reservations';
   info: {
     description: 'Arch\u00EDv odoslan\u00ED z ReservationForm (rezerv\u00E1cia prehliadky/om\u0161e)';
-    displayName: 'Reservation';
+    displayName: 'Rezerv\u00E1cie';
     pluralName: 'reservations';
     singularName: 'reservation';
   };
@@ -1211,7 +1433,7 @@ export interface ApiVisitPageVisitPage extends Struct.SingleTypeSchema {
   collectionName: 'visit_pages';
   info: {
     description: 'Hub str\u00E1nka N\u00E1v\u0161teva (/navsteva) \u2014 info pre turistov + MainSquare/Wallet integr\u00E1cia';
-    displayName: 'Visit Page';
+    displayName: 'Str\u00E1nka: N\u00E1v\u0161teva';
     pluralName: 'visit-pages';
     singularName: 'visit-page';
   };
@@ -1224,9 +1446,51 @@ export interface ApiVisitPageVisitPage extends Struct.SingleTypeSchema {
     };
   };
   attributes: {
+    cellarsBody: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    cellarsCtaLabel: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    cellarsEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    cellarsImage: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    cellarsTitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    heroCtaPrimaryLabel: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    heroCtaSecondaryLabel: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     heroEyebrow: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -1239,8 +1503,44 @@ export interface ApiVisitPageVisitPage extends Struct.SingleTypeSchema {
           localized: false;
         };
       }>;
+    heroSubtitle: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     heroTitle: Schema.Attribute.String &
       Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    heroTitleEmphasis: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    hours: Schema.Attribute.Component<'shared.hours-row', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    journeyEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    journeySteps: Schema.Attribute.Component<'layout.journey-step', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    journeyTitle: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1257,6 +1557,48 @@ export interface ApiVisitPageVisitPage extends Struct.SingleTypeSchema {
           localized: false;
         };
       }>;
+    martineumAwards: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    martineumBody: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    martineumEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    martineumImages: Schema.Attribute.Media<'images', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    martineumTitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    practicalEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    practicalTitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     qrCodeReservation: Schema.Attribute.Media<'images'> &
       Schema.Attribute.SetPluginOptions<{
@@ -1268,6 +1610,42 @@ export interface ApiVisitPageVisitPage extends Struct.SingleTypeSchema {
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
+        };
+      }>;
+    reservationBody: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    reservationCtaLabel: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    reservationTitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    restrictions: Schema.Attribute.Component<'layout.restriction-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    restrictionsEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    restrictionsTitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
         };
       }>;
     sections: Schema.Attribute.DynamicZone<
@@ -1285,6 +1663,36 @@ export interface ApiVisitPageVisitPage extends Struct.SingleTypeSchema {
         };
       }>;
     seo: Schema.Attribute.Component<'shared.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    services: Schema.Attribute.Component<'layout.icon-card', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    servicesEyebrow: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    servicesTitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    stats: Schema.Attribute.Component<'layout.stat-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    tickets: Schema.Attribute.Component<'layout.ticket-row', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1618,11 +2026,11 @@ export interface PluginUploadFolder extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    children: Schema.Attribute.Relation<'oneToMany', 'plugin::upload.folder'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     files: Schema.Attribute.Relation<'oneToMany', 'plugin::upload.file'>;
-    children: Schema.Attribute.Relation<'oneToMany', 'plugin::upload.folder'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1821,6 +2229,7 @@ declare module '@strapi/strapi' {
       'api::event.event': ApiEventEvent;
       'api::excursion.excursion': ApiExcursionExcursion;
       'api::global.global': ApiGlobalGlobal;
+      'api::history-page.history-page': ApiHistoryPageHistoryPage;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::page.page': ApiPagePage;
       'api::parish-page.parish-page': ApiParishPageParishPage;

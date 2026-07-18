@@ -4,7 +4,7 @@
   "info": {
     "singularName": "excursion",
     "pluralName": "excursions",
-    "displayName": "Excursion",
+    "displayName": "Objednávky exkurzií",
     "description": "Archív odoslaní z ExcursionForm (objednávka exkurzie pre skupiny)"
   },
   "options": {

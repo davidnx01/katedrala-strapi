@@ -1,7 +1,7 @@
 {
   "collectionName": "components_sections_cta_banners",
   "info": {
-    "displayName": "CTA Banner",
+    "displayName": "Pruh s tlačidlom",
     "icon": "bulletList",
     "description": "Zvýraznený pruh s nadpisom a jedným tlačidlom"
   },

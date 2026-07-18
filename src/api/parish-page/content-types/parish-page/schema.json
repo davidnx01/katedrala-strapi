@@ -4,7 +4,7 @@
   "info": {
     "singularName": "parish-page",
     "pluralName": "parish-pages",
-    "displayName": "Parish Page",
+    "displayName": "Stránka: Farnosť",
     "description": "Hub stránka Farnosť (/farnost) — sekcie sviatostí sú súčasťou sections dynamic zone priamo na tejto stránke, nie samostatné podstránky"
   },
   "options": {

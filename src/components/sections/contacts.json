@@ -1,7 +1,7 @@
 {
   "collectionName": "components_sections_contacts",
   "info": {
-    "displayName": "Contacts",
+    "displayName": "Kontaktné karty",
     "icon": "pinMap",
     "description": "Blok kontaktných kariet (adresa/telefón/email/foto)"
   },

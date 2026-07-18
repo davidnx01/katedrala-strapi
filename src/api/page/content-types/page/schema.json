@@ -4,7 +4,7 @@
   "info": {
     "singularName": "page",
     "pluralName": "pages",
-    "displayName": "Page",
+    "displayName": "Ďalšie stránky",
     "description": "Generická flexibilná stránka poskladaná zo sekcií (Kapitulská ulica, Martineum, Sprievodca, Audioguides, Exkurzia, Omša s kňazom, ...)"
   },
   "options": {

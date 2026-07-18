@@ -1,7 +1,7 @@
 {
   "collectionName": "components_shared_mass_times",
   "info": {
-    "displayName": "Mass Time",
+    "displayName": "Riadok rozpisu omší",
     "icon": "clock",
     "description": "Riadok rozpisu bohoslužieb (deň/dni + časy + jazyk)"
   },
@@ -12,8 +12,9 @@
       "required": true
     },
     "times": {
-      "type": "json",
-      "required": true
+      "type": "string",
+      "required": true,
+      "description": "Časy oddelené čiarkou, napr. „8:00, 18:00“"
     },
     "language": {
       "type": "enumeration",

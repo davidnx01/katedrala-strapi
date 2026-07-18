@@ -1,7 +1,7 @@
 {
   "collectionName": "components_shared_meta_rows",
   "info": {
-    "displayName": "Meta Row",
+    "displayName": "Riadok s ikonou",
     "icon": "list",
     "description": "Riadok s ikonou a textom (napr. rozpis, lokácia) pod textovým obsahom sekcie"
   },

@@ -1,7 +1,7 @@
 {
   "collectionName": "components_shared_ctas",
   "info": {
-    "displayName": "CTA",
+    "displayName": "Tlačidlo / odkaz",
     "icon": "cursor",
     "description": "Tlačidlo/odkaz s výberom vizuálneho štýlu"
   },

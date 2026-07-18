@@ -1,7 +1,7 @@
 {
   "collectionName": "components_sections_announcements_previews",
   "info": {
-    "displayName": "Announcements Preview",
+    "displayName": "Náhľad: Farské oznamy",
     "icon": "bulletList",
     "description": "Náhľad najnovších farských oznamov (dáta ťahané z Announcement kolekcie, nie statické)"
   },

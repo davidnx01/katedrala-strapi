@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_layout_ticket_rows",
+  "info": {
+    "displayName": "Riadok cenníka",
+    "icon": "priceTag",
+    "description": "Jeden riadok cenníka vstupného (napr. „Dospelí“ / „5 €“)"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "price": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

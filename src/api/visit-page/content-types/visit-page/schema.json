@@ -4,7 +4,7 @@
   "info": {
     "singularName": "visit-page",
     "pluralName": "visit-pages",
-    "displayName": "Visit Page",
+    "displayName": "Stránka: Návšteva",
     "description": "Hub stránka Návšteva (/navsteva) — info pre turistov + MainSquare/Wallet integrácia"
   },
   "options": {
@@ -23,11 +23,152 @@
       "required": true,
       "pluginOptions": { "i18n": { "localized": true } }
     },
+    "heroTitleEmphasis": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "heroSubtitle": {
+      "type": "text",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "heroCtaPrimaryLabel": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "heroCtaSecondaryLabel": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
     "heroImage": {
       "type": "media",
       "multiple": false,
       "allowedTypes": ["images"],
       "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "stats": {
+      "type": "component",
+      "repeatable": true,
+      "component": "layout.stat-item",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "martineumEyebrow": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "martineumTitle": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "martineumBody": {
+      "type": "richtext",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "martineumAwards": {
+      "type": "string",
+      "description": "Ocenenia oddelené čiarkou, napr. „Cena Dušana Jurkoviča 2022, Kultúrna Pamiatka roka 2022“",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "martineumImages": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images"],
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "servicesEyebrow": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "servicesTitle": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "services": {
+      "type": "component",
+      "repeatable": true,
+      "component": "layout.icon-card",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "journeyEyebrow": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "journeyTitle": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "journeySteps": {
+      "type": "component",
+      "repeatable": true,
+      "component": "layout.journey-step",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "cellarsEyebrow": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "cellarsTitle": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "cellarsBody": {
+      "type": "richtext",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "cellarsImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"],
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "cellarsCtaLabel": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "practicalEyebrow": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "practicalTitle": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "hours": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.hours-row",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "tickets": {
+      "type": "component",
+      "repeatable": true,
+      "component": "layout.ticket-row",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "reservationTitle": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "reservationBody": {
+      "type": "text",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "reservationCtaLabel": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "restrictionsEyebrow": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "restrictionsTitle": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "restrictions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "layout.restriction-item",
+      "pluginOptions": { "i18n": { "localized": true } }
     },
     "mainSquareUrl": {
       "type": "string",

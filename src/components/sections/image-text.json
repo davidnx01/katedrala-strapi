@@ -1,7 +1,7 @@
 {
   "collectionName": "components_sections_image_texts",
   "info": {
-    "displayName": "Image + Text",
+    "displayName": "Obrázok + text",
     "icon": "layout",
     "description": "Obrázok + text + voliteľné CTA a meta riadky (napr. Sobáš, Krst, Adorácia)"
   },

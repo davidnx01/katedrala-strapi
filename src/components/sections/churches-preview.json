@@ -1,7 +1,7 @@
 {
   "collectionName": "components_sections_churches_previews",
   "info": {
-    "displayName": "Churches Preview",
+    "displayName": "Náhľad: Kostoly",
     "icon": "building",
     "description": "Náhľad kostolov a kaplniek (dáta ťahané z Church kolekcie, nie statické)"
   },

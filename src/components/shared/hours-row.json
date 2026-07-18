@@ -1,7 +1,7 @@
 {
   "collectionName": "components_shared_hours_rows",
   "info": {
-    "displayName": "Hours Row",
+    "displayName": "Riadok otváracích hodín",
     "icon": "clock",
     "description": "Jeden riadok otváracích hodín (deň/dni + čas)"
   },

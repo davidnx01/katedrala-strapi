@@ -1,7 +1,7 @@
 {
   "collectionName": "components_shared_contact_locations",
   "info": {
-    "displayName": "Contact Location",
+    "displayName": "Kontaktné miesto",
     "icon": "pinMap",
     "description": "Jedna kontaktná lokácia (adresa, telefón, email, foto, hodiny)"
   },
@@ -46,8 +46,8 @@
       "type": "string"
     },
     "tags": {
-      "type": "json",
-      "description": "String[] of short labels shown as chips over the photo on the homepage contacts section (e.g. [\"Hlavný chrám farnosti\", \"Sväté omše\"]). Not used on the /kontakt page."
+      "type": "string",
+      "description": "Krátke štítky oddelené čiarkou, zobrazené na fotke na hlavnej stránke, napr. „Hlavný chrám farnosti, Sväté omše“. Na stránke Kontakt sa nepoužívajú."
     }
   }
 }

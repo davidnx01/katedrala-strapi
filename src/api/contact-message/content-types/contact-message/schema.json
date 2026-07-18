@@ -4,7 +4,7 @@
   "info": {
     "singularName": "contact-message",
     "pluralName": "contact-messages",
-    "displayName": "Contact Message",
+    "displayName": "Správy z kontaktného formulára",
     "description": "Archív odoslaní z ContactForm"
   },
   "options": {

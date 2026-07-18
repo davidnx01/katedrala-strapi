@@ -1,7 +1,7 @@
 {
   "collectionName": "components_sections_faqs",
   "info": {
-    "displayName": "FAQ",
+    "displayName": "Časté otázky",
     "icon": "question",
     "description": "Zoznam často kladených otázok"
   },

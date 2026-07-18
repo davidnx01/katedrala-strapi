@@ -1,7 +1,7 @@
 {
   "collectionName": "components_layout_quick_links",
   "info": {
-    "displayName": "Quick Link",
+    "displayName": "Odkaz s ikonou",
     "icon": "grid",
     "description": "Ikona + odkaz (quick nav tile alebo homepage quick link karta)"
   },

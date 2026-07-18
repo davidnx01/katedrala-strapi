@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_layout_timeline_events",
+  "info": {
+    "displayName": "Udalosť na časovej osi",
+    "icon": "calendar",
+    "description": "Jedna udalosť na časovej osi histórie katedrály (rok + titulok + popis)"
+  },
+  "options": {},
+  "attributes": {
+    "year": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

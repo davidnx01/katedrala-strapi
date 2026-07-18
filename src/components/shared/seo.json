@@ -1,7 +1,7 @@
 {
   "collectionName": "components_shared_seos",
   "info": {
-    "displayName": "SEO",
+    "displayName": "SEO nastavenia",
     "icon": "search",
     "description": "Meta tagy pre vyhľadávače a social preview"
   },

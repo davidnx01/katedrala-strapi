@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_layout_journey_steps",
+  "info": {
+    "displayName": "Krok cesty návštevníka",
+    "icon": "arrowRight",
+    "description": "Jeden očíslovaný krok v sekcii „Cesta návštevníka“ na stránke Návšteva"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

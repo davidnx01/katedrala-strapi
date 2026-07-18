@@ -4,7 +4,7 @@
   "info": {
     "singularName": "reservation",
     "pluralName": "reservations",
-    "displayName": "Reservation",
+    "displayName": "Rezervácie",
     "description": "Archív odoslaní z ReservationForm (rezervácia prehliadky/omše)"
   },
   "options": {

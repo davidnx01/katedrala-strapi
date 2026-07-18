@@ -1,10 +1,23 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface LayoutCoronationKing extends Struct.ComponentSchema {
+  collectionName: 'components_layout_coronation_kings';
+  info: {
+    description: 'Jeden riadok v zozname korunovan\u00FDch panovn\u00EDkov (meno + rok)';
+    displayName: 'Korunovan\u00FD panovn\u00EDk';
+    icon: 'crown';
+  };
+  attributes: {
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    year: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface LayoutHeroSection extends Struct.ComponentSchema {
   collectionName: 'components_layout_hero_sections';
   info: {
     description: 'Celostr\u00E1nkov\u00FD hero banner so slideshow efektom (homepage)';
-    displayName: 'Hero Section';
+    displayName: 'Hero sekcia (\u00FAvodn\u00E1 fotka)';
     icon: 'picture';
   };
   attributes: {
@@ -19,11 +32,42 @@ export interface LayoutHeroSection extends Struct.ComponentSchema {
   };
 }
 
+export interface LayoutIconCard extends Struct.ComponentSchema {
+  collectionName: 'components_layout_icon_cards';
+  info: {
+    description: 'Karta v mrie\u017Eke slu\u017Eieb (ikona + titulok + popis), napr. na str\u00E1nke N\u00E1v\u0161teva';
+    displayName: 'Karta s ikonou';
+    icon: 'grid';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    icon: Schema.Attribute.Enumeration<
+      ['ticket', 'headphones', 'gift', 'gallery']
+    > &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface LayoutJourneyStep extends Struct.ComponentSchema {
+  collectionName: 'components_layout_journey_steps';
+  info: {
+    description: 'Jeden o\u010D\u00EDslovan\u00FD krok v sekcii \u201ECesta n\u00E1v\u0161tevn\u00EDka\u201C na str\u00E1nke N\u00E1v\u0161teva';
+    displayName: 'Krok cesty n\u00E1v\u0161tevn\u00EDka';
+    icon: 'arrowRight';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface LayoutQuickLink extends Struct.ComponentSchema {
   collectionName: 'components_layout_quick_links';
   info: {
     description: 'Ikona + odkaz (quick nav tile alebo homepage quick link karta)';
-    displayName: 'Quick Link';
+    displayName: 'Odkaz s ikonou';
     icon: 'grid';
   };
   attributes: {
@@ -39,14 +83,67 @@ export interface LayoutQuickLinkCard extends Struct.ComponentSchema {
   collectionName: 'components_layout_quick_link_cards';
   info: {
     description: 'Homepage quick link karta s fotkou na pozad\u00ED (Katedr\u00E1la/Farnos\u0165/N\u00E1v\u0161teva/Kontakt)';
-    displayName: 'Quick Link Card';
+    displayName: 'Dla\u017Edica s fotkou';
     icon: 'grid';
   };
   attributes: {
     href: Schema.Attribute.String & Schema.Attribute.Required;
-    icon: Schema.Attribute.String & Schema.Attribute.Required;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface LayoutRestrictionItem extends Struct.ComponentSchema {
+  collectionName: 'components_layout_restriction_items';
+  info: {
+    description: 'Jedno pravidlo v zozname pravidiel a obmedzen\u00ED (emoji ikona + text)';
+    displayName: 'Pravidlo / obmedzenie';
+    icon: 'informationSquare';
+  };
+  attributes: {
+    icon: Schema.Attribute.String & Schema.Attribute.Required;
+    text: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface LayoutStatItem extends Struct.ComponentSchema {
+  collectionName: 'components_layout_stat_items';
+  info: {
+    description: 'Jedna polo\u017Eka v \u0161tatistickom paneli (napr. \u201E1452\u201C / \u201Erok zalo\u017Eenia katedr\u00E1ly\u201C)';
+    displayName: '\u0160tatistika (\u010D\u00EDslo + popis)';
+    icon: 'chartBubble';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    value: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface LayoutTicketRow extends Struct.ComponentSchema {
+  collectionName: 'components_layout_ticket_rows';
+  info: {
+    description: 'Jeden riadok cenn\u00EDka vstupn\u00E9ho (napr. \u201EDospel\u00ED\u201C / \u201E5 \u20AC\u201C)';
+    displayName: 'Riadok cenn\u00EDka';
+    icon: 'priceTag';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    price: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface LayoutTimelineEvent extends Struct.ComponentSchema {
+  collectionName: 'components_layout_timeline_events';
+  info: {
+    description: 'Jedna udalos\u0165 na \u010Dasovej osi hist\u00F3rie katedr\u00E1ly (rok + titulok + popis)';
+    displayName: 'Udalos\u0165 na \u010Dasovej osi';
+    icon: 'calendar';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    year: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -54,7 +151,7 @@ export interface SectionsAnnouncementsPreview extends Struct.ComponentSchema {
   collectionName: 'components_sections_announcements_previews';
   info: {
     description: 'N\u00E1h\u013Ead najnov\u0161\u00EDch farsk\u00FDch oznamov (d\u00E1ta \u0165ahan\u00E9 z Announcement kolekcie, nie statick\u00E9)';
-    displayName: 'Announcements Preview';
+    displayName: 'N\u00E1h\u013Ead: Farsk\u00E9 oznamy';
     icon: 'bulletList';
   };
   attributes: {
@@ -77,7 +174,7 @@ export interface SectionsChurchesPreview extends Struct.ComponentSchema {
   collectionName: 'components_sections_churches_previews';
   info: {
     description: 'N\u00E1h\u013Ead kostolov a kaplniek (d\u00E1ta \u0165ahan\u00E9 z Church kolekcie, nie statick\u00E9)';
-    displayName: 'Churches Preview';
+    displayName: 'N\u00E1h\u013Ead: Kostoly';
     icon: 'building';
   };
   attributes: {
@@ -100,7 +197,7 @@ export interface SectionsContacts extends Struct.ComponentSchema {
   collectionName: 'components_sections_contacts';
   info: {
     description: 'Blok kontaktn\u00FDch kariet (adresa/telef\u00F3n/email/foto)';
-    displayName: 'Contacts';
+    displayName: 'Kontaktn\u00E9 karty';
     icon: 'pinMap';
   };
   attributes: {
@@ -115,7 +212,7 @@ export interface SectionsCtaBanner extends Struct.ComponentSchema {
   collectionName: 'components_sections_cta_banners';
   info: {
     description: 'Zv\u00FDraznen\u00FD pruh s nadpisom a jedn\u00FDm tla\u010Didlom';
-    displayName: 'CTA Banner';
+    displayName: 'Pruh s tla\u010Didlom';
     icon: 'bulletList';
   };
   attributes: {
@@ -131,7 +228,7 @@ export interface SectionsFaq extends Struct.ComponentSchema {
   collectionName: 'components_sections_faqs';
   info: {
     description: 'Zoznam \u010Dasto kladen\u00FDch ot\u00E1zok';
-    displayName: 'FAQ';
+    displayName: '\u010Cast\u00E9 ot\u00E1zky';
     icon: 'question';
   };
   attributes: {
@@ -146,7 +243,7 @@ export interface SectionsGallery extends Struct.ComponentSchema {
   collectionName: 'components_sections_galleries';
   info: {
     description: 'Mrie\u017Eka fotografi\u00ED';
-    displayName: 'Gallery';
+    displayName: 'Fotogal\u00E9ria';
     icon: 'images';
   };
   attributes: {
@@ -159,7 +256,7 @@ export interface SectionsImageText extends Struct.ComponentSchema {
   collectionName: 'components_sections_image_texts';
   info: {
     description: 'Obr\u00E1zok + text + volite\u013En\u00E9 CTA a meta riadky (napr. Sob\u00E1\u0161, Krst, Ador\u00E1cia)';
-    displayName: 'Image + Text';
+    displayName: 'Obr\u00E1zok + text';
     icon: 'layout';
   };
   attributes: {
@@ -178,7 +275,7 @@ export interface SectionsMassSchedule extends Struct.ComponentSchema {
   collectionName: 'components_sections_mass_schedules';
   info: {
     description: 'Rozpis bohoslu\u017Eieb s fotografiou (tmav\u00E1 sekcia na homepage)';
-    displayName: 'Mass Schedule';
+    displayName: 'Rozpis bohoslu\u017Eieb';
     icon: 'clock';
   };
   attributes: {
@@ -196,7 +293,7 @@ export interface SectionsQuickNav extends Struct.ComponentSchema {
   collectionName: 'components_sections_quick_navs';
   info: {
     description: 'Mrie\u017Eka ikona+odkaz dla\u017Ed\u00EDc (napr. sekcie Farnosti)';
-    displayName: 'Quick Nav';
+    displayName: 'R\u00FDchle odkazy (dla\u017Edice)';
     icon: 'grid';
   };
   attributes: {
@@ -210,7 +307,7 @@ export interface SectionsRichText extends Struct.ComponentSchema {
   collectionName: 'components_sections_rich_texts';
   info: {
     description: 'Vo\u013En\u00FD textov\u00FD blok (napr. hist\u00F3ria, inform\u00E1cie)';
-    displayName: 'Rich Text';
+    displayName: 'Textov\u00FD blok';
     icon: 'align-left';
   };
   attributes: {
@@ -223,7 +320,7 @@ export interface SharedContactLocation extends Struct.ComponentSchema {
   collectionName: 'components_shared_contact_locations';
   info: {
     description: 'Jedna kontaktn\u00E1 lok\u00E1cia (adresa, telef\u00F3n, email, foto, hodiny)';
-    displayName: 'Contact Location';
+    displayName: 'Kontaktn\u00E9 miesto';
     icon: 'pinMap';
   };
   attributes: {
@@ -237,7 +334,7 @@ export interface SharedContactLocation extends Struct.ComponentSchema {
     phone: Schema.Attribute.String;
     photo: Schema.Attribute.Media<'images'>;
     slug: Schema.Attribute.String;
-    tags: Schema.Attribute.JSON;
+    tags: Schema.Attribute.String;
   };
 }
 
@@ -245,7 +342,7 @@ export interface SharedCta extends Struct.ComponentSchema {
   collectionName: 'components_shared_ctas';
   info: {
     description: 'Tla\u010Didlo/odkaz s v\u00FDberom vizu\u00E1lneho \u0161t\u00FDlu';
-    displayName: 'CTA';
+    displayName: 'Tla\u010Didlo / odkaz';
     icon: 'cursor';
   };
   attributes: {
@@ -260,7 +357,7 @@ export interface SharedFaqItem extends Struct.ComponentSchema {
   collectionName: 'components_shared_faq_items';
   info: {
     description: 'Jedna ot\u00E1zka a odpove\u010F';
-    displayName: 'FAQ Item';
+    displayName: 'Ot\u00E1zka a odpove\u010F';
     icon: 'question';
   };
   attributes: {
@@ -273,7 +370,7 @@ export interface SharedHoursRow extends Struct.ComponentSchema {
   collectionName: 'components_shared_hours_rows';
   info: {
     description: 'Jeden riadok otv\u00E1rac\u00EDch hod\u00EDn (de\u0148/dni + \u010Das)';
-    displayName: 'Hours Row';
+    displayName: 'Riadok otv\u00E1rac\u00EDch hod\u00EDn';
     icon: 'clock';
   };
   attributes: {
@@ -286,14 +383,14 @@ export interface SharedMassTime extends Struct.ComponentSchema {
   collectionName: 'components_shared_mass_times';
   info: {
     description: 'Riadok rozpisu bohoslu\u017Eieb (de\u0148/dni + \u010Dasy + jazyk)';
-    displayName: 'Mass Time';
+    displayName: 'Riadok rozpisu om\u0161\u00ED';
     icon: 'clock';
   };
   attributes: {
     dayLabel: Schema.Attribute.String & Schema.Attribute.Required;
     language: Schema.Attribute.Enumeration<['sk', 'en', 'hu']> &
       Schema.Attribute.DefaultTo<'sk'>;
-    times: Schema.Attribute.JSON & Schema.Attribute.Required;
+    times: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -301,7 +398,7 @@ export interface SharedMetaRow extends Struct.ComponentSchema {
   collectionName: 'components_shared_meta_rows';
   info: {
     description: 'Riadok s ikonou a textom (napr. rozpis, lok\u00E1cia) pod textov\u00FDm obsahom sekcie';
-    displayName: 'Meta Row';
+    displayName: 'Riadok s ikonou';
     icon: 'list';
   };
   attributes: {
@@ -329,7 +426,7 @@ export interface SharedSeo extends Struct.ComponentSchema {
   collectionName: 'components_shared_seos';
   info: {
     description: 'Meta tagy pre vyh\u013Ead\u00E1va\u010De a social preview';
-    displayName: 'SEO';
+    displayName: 'SEO nastavenia';
     icon: 'search';
   };
   attributes: {
@@ -349,9 +446,16 @@ export interface SharedSeo extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
+      'layout.coronation-king': LayoutCoronationKing;
       'layout.hero-section': LayoutHeroSection;
+      'layout.icon-card': LayoutIconCard;
+      'layout.journey-step': LayoutJourneyStep;
       'layout.quick-link': LayoutQuickLink;
       'layout.quick-link-card': LayoutQuickLinkCard;
+      'layout.restriction-item': LayoutRestrictionItem;
+      'layout.stat-item': LayoutStatItem;
+      'layout.ticket-row': LayoutTicketRow;
+      'layout.timeline-event': LayoutTimelineEvent;
       'sections.announcements-preview': SectionsAnnouncementsPreview;
       'sections.churches-preview': SectionsChurchesPreview;
       'sections.contacts': SectionsContacts;

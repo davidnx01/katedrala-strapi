@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_layout_icon_cards",
+  "info": {
+    "displayName": "Karta s ikonou",
+    "icon": "grid",
+    "description": "Karta v mriežke služieb (ikona + titulok + popis), napr. na stránke Návšteva"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "enumeration",
+      "enum": ["ticket", "headphones", "gift", "gallery"],
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    }
+  }
+}
