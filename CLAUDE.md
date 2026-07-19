@@ -139,13 +139,18 @@ sections: dynamiczone [rich-text, image-text, cta-banner, gallery, faq, mass-sch
 seo: component shared.seo, localized
 ```
 
-**Event** (`api::event.event`) — udalosti pre kalendár na homepage (sväté omše, koncerty, sviatky, prehliadky, stretnutia...)
+**Event** (`api::event.event`) — udalosti pre kalendár na homepage (sväté omše, koncerty, sviatky, prehliadky, stretnutia...), každá má vlastnú detail stránku `/udalosti/[slug]`
 ```
 title: string, required, localized
+slug: uid (target title), required, localized
 date: date, required, NOT localized
-description: text, localized
-href: string, NOT localized — relatívna cesta na súvisiaci obsah (napr. /farnost/oznamy/15-nedela)
+category: enum [pohreb, koncert, sukromna_exkurzia, krst], required, NOT localized — určuje farbu bodky v kalendári aj farbu badge na detail stránke (viď web/lib/event-categories.ts), pridanie novej kategórie = nová enum hodnota + nový záznam v EVENT_CATEGORY_COLORS/EVENT_CATEGORY_BADGE_CLASSES a Calendar.categories (sk/en)
+timeFrom: time, required, NOT localized
+timeTo: time, required, NOT localized
+location: string, required, localized — napr. "Katedrála sv. Martina, Rudnayovo námestie 1"
+description: text, required, localized
 ```
+Pripravené pre budúcu samostatnú stránku „obsadenosť katedrály" (veľký kalendár s výpisom hodín pre každý deň) — zatiaľ nepostavená, len dátový model.
 
 **Reservation / Excursion / ContactMessage** — archív odoslaní formulárov (ReservationForm/ExcursionForm/ContactForm), `draftAndPublish: false`, **bez i18n** (transakčné záznamy, nie editoriálny obsah — len plain `locale` string pole pre kontext). `status` enum na triedenie v adminovi. Zapisujú sa cez samostatný write-only token (pozri Bezpečnosť).
 

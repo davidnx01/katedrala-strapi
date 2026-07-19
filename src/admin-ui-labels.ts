@@ -149,6 +149,9 @@ export const FIELD_LABELS: Record<string, string> = {
   todayBody: "Katedrála dnes — text",
   todayCtaPrimaryLabel: "Katedrála dnes — text hlavného tlačidla",
   todayCtaSecondaryLabel: "Katedrála dnes — text vedľajšieho tlačidla",
+  category: "Kategória (farba v kalendári)",
+  timeFrom: "Čas od",
+  timeTo: "Čas do",
 };
 
 /** Per-content-type/component overrides where the same field name means something more specific. */
