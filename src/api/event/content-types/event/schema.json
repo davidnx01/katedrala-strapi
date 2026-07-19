@@ -32,7 +32,7 @@
     },
     "category": {
       "type": "enumeration",
-      "enum": ["pohreb", "koncert", "sukromna_exkurzia", "krst"],
+      "enum": ["pohreb", "koncert", "sukromna_exkurzia", "krst", "omsa", "adoracia", "sobas", "lectio", "prehliadka"],
       "required": true,
       "description": "Určuje farbu bodky v kalendári — mapovanie farieb je vo frontend kóde (lib/event-categories.ts)",
       "pluginOptions": { "i18n": { "localized": false } }

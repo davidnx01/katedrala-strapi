@@ -90,7 +90,11 @@ Rovnaký princíp platí aj pre `Homepage` a `ParishPage` — obe majú vlastné
 | `sections.churches-preview` | eyebrow, title, limit (int, default 4), linkLabel | Homepage — dáta ťahané naživo z `Church` |
 | `sections.contacts` | eyebrow, title, locations (shared.contact-location[]) | Homepage |
 
-## Content types
+## SEO polia — kde sú a kde zámerne nie sú
+
+`shared.seo` (metaTitle/metaDescription/ogImage/noIndex) je len na **single-type stránkach** (Homepage, ParishPage, VisitPage, ContactPage, HistoryPage, Global) a na kurátorovanej kolekcii **Page** (Kapitulská ulica, Martineum, ...) — všetko existuje raz alebo v hrsti záznamov, dá sa to reálne ručne vyplniť a stojí to za to.
+
+**Church, Announcement, Concert, Event nemajú `seo` pole vôbec** — sú to opakované, priebežne pribúdajúce záznamy (desiatky kostolov/oznamov/koncertov/udalostí do budúcna) a nikto ich nebude ručne vypĺňať pri každom novom zázname. Namiesto toho frontend (`web/`) generuje `<title>`/`<meta description>`/OG obrázok **automaticky** cez `generateMetadata()` priamo z bežných content polí (názov, popis, fotka) — pozri `web/CLAUDE.md` sekciu SEO. Ak niekedy pribudne frontend stránka pre `Concert`, nasleduj rovnaký vzor (žiadne nové `seo` pole do schémy).
 
 ### Collections
 
@@ -107,7 +111,6 @@ photo: media (single), gallery: media (multiple) — NOT localized
 announcementsUrl: string, NOT localized
 latitude / longitude: decimal, NOT localized — pripravené pre budúcu mapu
 order: integer, default 0, NOT localized — ručné zoradenie v listingu
-seo: component shared.seo, localized
 ```
 
 **Announcement** (`api::announcement.announcement`) — farské oznamy
@@ -116,7 +119,6 @@ title: string, required, localized
 slug: uid (target title), localized
 date: date, required, NOT localized
 content: richtext, required, localized
-seo: component shared.seo, localized
 ```
 
 **Concert** (`api::concert.concert`) — koncerty
@@ -126,7 +128,6 @@ slug: uid (target title), localized  ← nové oproti pôvodnému návrhu, pripr
 date: datetime, required, NOT localized
 description: richtext, localized
 photo: media (single), NOT localized
-seo: component shared.seo, localized
 ```
 
 **Page** (`api::page.page`) — generická flexibilná stránka
@@ -139,12 +140,12 @@ sections: dynamiczone [rich-text, image-text, cta-banner, gallery, faq, mass-sch
 seo: component shared.seo, localized
 ```
 
-**Event** (`api::event.event`) — udalosti pre kalendár na homepage (sväté omše, koncerty, sviatky, prehliadky, stretnutia...), každá má vlastnú detail stránku `/udalosti/[slug]`
+**Event** (`api::event.event`) — udalosti pre kalendár na homepage (sväté omše, koncerty, sviatky, prehliadky, stretnutia...), každá má vlastnú detail stránku `/udalosti/[slug]` a spoločne tvoria týždenný prehľad na `/udalosti` (hero/legenda tam sú statický i18n text, nie samostatný Strapi content type — rovnaký vzor ako `/kostoly`)
 ```
 title: string, required, localized
 slug: uid (target title), required, localized
 date: date, required, NOT localized
-category: enum [pohreb, koncert, sukromna_exkurzia, krst], required, NOT localized — určuje farbu bodky v kalendári aj farbu badge na detail stránke (viď web/lib/event-categories.ts), pridanie novej kategórie = nová enum hodnota + nový záznam v EVENT_CATEGORY_COLORS/EVENT_CATEGORY_BADGE_CLASSES a Calendar.categories (sk/en)
+category: enum [pohreb, koncert, sukromna_exkurzia, krst, omsa, adoracia, sobas, lectio, prehliadka], required, NOT localized — určuje farbu bodky/dlaždice v kalendári aj farbu badge na detail stránke (viď web/lib/event-categories.ts), pridanie novej kategórie = nová enum hodnota + nový záznam v EVENT_CATEGORY_COLORS/EVENT_CATEGORY_BADGE_CLASSES/EVENT_CATEGORY_BORDER_CLASSES a Calendar.categories (sk/en)
 timeFrom: time, required, NOT localized
 timeTo: time, required, NOT localized
 location: string, required, localized — napr. "Katedrála sv. Martina, Rudnayovo námestie 1"
