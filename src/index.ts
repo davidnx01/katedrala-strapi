@@ -82,6 +82,7 @@ const PUBLIC_READABLE_UIDS = [
   'api::contact-page.contact-page',
   'api::global.global',
   'api::history-page.history-page',
+  'api::music-page.music-page',
 ];
 
 async function ensurePublicReadPermissions(strapi: Core.Strapi) {
@@ -102,6 +103,7 @@ async function ensurePublicReadPermissions(strapi: Core.Strapi) {
     'api::contact-page.contact-page',
     'api::global.global',
     'api::history-page.history-page',
+    'api::music-page.music-page',
   ]);
 
   const toCreate: string[] = [];

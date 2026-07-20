@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_layout_recording_items",
+  "info": {
+    "displayName": "Nahrávka / publikácia",
+    "icon": "cd",
+    "description": "Jedna nahrávka, CD alebo spevník v prehľade hudobných publikácií katedrály"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "year": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "required": true,
+      "description": "Voľný text, napr. 'CD', 'Spevník', 'Nahrávka'"
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

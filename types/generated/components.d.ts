@@ -94,6 +94,22 @@ export interface LayoutQuickLinkCard extends Struct.ComponentSchema {
   };
 }
 
+export interface LayoutRecordingItem extends Struct.ComponentSchema {
+  collectionName: 'components_layout_recording_items';
+  info: {
+    description: 'Jedna nahr\u00E1vka, CD alebo spevn\u00EDk v preh\u013Eade hudobn\u00FDch publik\u00E1ci\u00ED katedr\u00E1ly';
+    displayName: 'Nahr\u00E1vka / publik\u00E1cia';
+    icon: 'cd';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    photo: Schema.Attribute.Media<'images'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    type: Schema.Attribute.String & Schema.Attribute.Required;
+    year: Schema.Attribute.String;
+  };
+}
+
 export interface LayoutRestrictionItem extends Struct.ComponentSchema {
   collectionName: 'components_layout_restriction_items';
   info: {
@@ -375,6 +391,7 @@ export interface SharedHoursRow extends Struct.ComponentSchema {
   };
   attributes: {
     dayLabel: Schema.Attribute.String & Schema.Attribute.Required;
+    note: Schema.Attribute.String;
     time: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -452,6 +469,7 @@ declare module '@strapi/strapi' {
       'layout.journey-step': LayoutJourneyStep;
       'layout.quick-link': LayoutQuickLink;
       'layout.quick-link-card': LayoutQuickLinkCard;
+      'layout.recording-item': LayoutRecordingItem;
       'layout.restriction-item': LayoutRestrictionItem;
       'layout.stat-item': LayoutStatItem;
       'layout.ticket-row': LayoutTicketRow;

@@ -1,0 +1,173 @@
+{
+  "kind": "singleType",
+  "collectionName": "music_pages",
+  "info": {
+    "singularName": "music-page",
+    "pluralName": "music-pages",
+    "displayName": "Stránka: Hudba",
+    "description": "Stránka /hudba — organ, zbor Vox Cantoris, koncerty, spievané omše, nahrávky"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": { "localized": true }
+  },
+  "attributes": {
+    "heroEyebrow": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "heroTitle": {
+      "type": "string",
+      "required": true,
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "heroTitleEmphasis": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "heroSubtitle": {
+      "type": "text",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "heroImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"],
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "organEyebrow": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "organTitle": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "organBody": {
+      "type": "richtext",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "organStats": {
+      "type": "component",
+      "repeatable": true,
+      "component": "layout.stat-item",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "organImages": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images"],
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "organQuoteText": {
+      "type": "text",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "organQuoteAuthor": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "choirEyebrow": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "choirTitle": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "choirBody": {
+      "type": "richtext",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "choirImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"],
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "choirSocialLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.cta",
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "massesEyebrow": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "massesTitle": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "massesBody": {
+      "type": "richtext",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "massesSchedule": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.hours-row",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "massesImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"],
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "concertsEyebrow": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "concertsTitle": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "recordingsEyebrow": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "recordingsTitle": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "recordings": {
+      "type": "component",
+      "repeatable": true,
+      "component": "layout.recording-item",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "choralOrganEyebrow": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "choralOrganTitle": {
+      "type": "string",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "choralOrganBody": {
+      "type": "richtext",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "choralOrganImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"],
+      "pluginOptions": { "i18n": { "localized": false } }
+    },
+    "choralOrganStats": {
+      "type": "component",
+      "repeatable": true,
+      "component": "layout.stat-item",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo",
+      "pluginOptions": { "i18n": { "localized": true } }
+    }
+  }
+}

@@ -21,7 +21,8 @@ pnpm run start     ← produkčný beh (bez watch)
 ```
 src/
   api/            ← content types: church, announcement, concert, event, page, reservation, excursion,
-                     contact-message, homepage, parish-page, visit-page, contact-page, history-page, global
+                     contact-message, homepage, parish-page, visit-page, contact-page, history-page,
+                     music-page, global
     <name>/
       content-types/<name>/schema.json
       controllers/<name>.ts   ← factories.createCoreController (boilerplate, no custom logic)
@@ -29,7 +30,8 @@ src/
       services/<name>.ts      ← factories.createCoreService
   components/
     shared/       ← seo, cta, meta-row, mass-time, hours-row, contact-location, faq-item
-    layout/       ← hero-section, quick-link, quick-link-card
+    layout/       ← hero-section, quick-link, quick-link-card, stat-item, icon-card, journey-step,
+                     ticket-row, restriction-item, timeline-event, coronation-king, recording-item
     sections/     ← rich-text, image-text, cta-banner, gallery, faq, quick-nav,
                      mass-schedule, announcements-preview, churches-preview, contacts
   admin/          ← admin panel customizácie
@@ -56,7 +58,7 @@ Rovnaký princíp platí aj pre `Homepage` a `ParishPage` — obe majú vlastné
 | `shared.cta` | label, href, style (enum: primary/secondary/outline) |
 | `shared.meta-row` | icon (enum lucide-name), label |
 | `shared.mass-time` | dayLabel, times (json string[]), language (enum sk/en/hu) |
-| `shared.hours-row` | dayLabel, time — jeden riadok otváracích hodín |
+| `shared.hours-row` | dayLabel, time, note? — jeden riadok otváracích hodín (note = voliteľná poznámka, napr. „Slávnostná spievaná sv. omša“, používa MusicPage.massesSchedule) |
 | `shared.contact-location` | name, slug? (string, stabilný FE kľúč napr. pre mapové značky), address, city?, phone, email, hours (repeatable shared.hours-row), photo, description (richtext), iban, tags (json string[], len homepage kontaktné karty) |
 | `shared.faq-item` | question, answer (richtext) |
 
@@ -74,6 +76,7 @@ Rovnaký princíp platí aj pre `Homepage` a `ParishPage` — obe majú vlastné
 | `layout.restriction-item` | icon (string, jedno emoji), text — jedno pravidlo/obmedzenie, používa VisitPage.restrictions |
 | `layout.timeline-event` | year, title, description — jedna udalosť na časovej osi, používa HistoryPage.timelineEvents |
 | `layout.coronation-king` | name, year — jeden riadok zoznamu korunovaných panovníkov, používa HistoryPage.coronationsKings |
+| `layout.recording-item` | title, year?, type (voľný text, napr. „CD“/„Spevník“), description, photo? — jedna nahrávka/publikácia, používa MusicPage.recordings |
 
 ### Komponenty — `sections/` (dynamic-zone-eligible, kompozovateľný obsah)
 
@@ -128,6 +131,7 @@ slug: uid (target title), localized  ← nové oproti pôvodnému návrhu, pripr
 date: datetime, required, NOT localized
 description: richtext, localized
 photo: media (single), NOT localized
+isFree: boolean, default true, NOT localized — zobrazí badge "Vstup voľný" na karte (napr. /hudba)
 ```
 
 **Page** (`api::page.page`) — generická flexibilná stránka
@@ -202,6 +206,19 @@ todayEyebrow, todayTitle, todayBody, todayCtaPrimaryLabel (href fixný /navsteva
 seo
 ```
 
+**MusicPage** (`/hudba`) — pevné polia (rovnaký prístup ako VisitPage/HistoryPage — nie dynamic-zone stránka, poradie sekcií fixné v kóde `web/app/[locale]/hudba/page.tsx`). Sekcia „Najbližšie koncerty“ nemá vlastné statické polia — ťahá naživo z kolekcie `Concert` (`getConcerts({ upcomingOnly: true })`), rovnaký princíp ako `sections.announcements-preview`/`churches-preview`.
+```
+heroEyebrow, heroTitle, heroTitleEmphasis, heroSubtitle, heroImage
+organEyebrow, organTitle, organBody (richtext), organStats: component repeatable layout.stat-item (reused), organImages (media, multiple — 2 fotky)
+organQuoteText, organQuoteAuthor
+choirEyebrow, choirTitle, choirBody (richtext), choirImage, choirSocialLinks: component repeatable shared.cta (reused pre Facebook/Instagram/YouTube odkazy)
+massesEyebrow, massesTitle, massesBody (richtext), massesSchedule: component repeatable shared.hours-row (reused), massesImage
+concertsEyebrow, concertsTitle (samotné koncerty = live dáta z Concert, nie CMS pole na tejto stránke)
+recordingsEyebrow, recordingsTitle, recordings: component repeatable layout.recording-item
+choralOrganEyebrow, choralOrganTitle, choralOrganBody (richtext), choralOrganImage, choralOrganStats: component repeatable layout.stat-item (reused)
+seo
+```
+
 Všetky content types majú `pluginOptions.i18n.localized: true` na úrovni typu; pri jednotlivých poliach je localized explicitne `false` tam, kde sa hodnota nemá prekladať (telefón, email, médiá, súradnice, poradie).
 
 ## Bezpečnosť
@@ -212,9 +229,11 @@ Všetky content types majú `pluginOptions.i18n.localized: true` na úrovni typu
   - `STRAPI_FORMS_TOKEN` — typ **Custom**, permissions **iba `create`** na `reservation`, `excursion`, `contact-message` — žiadny `find`/`findOne`/`update`/`delete`. Bez tohto oddelenia by kompromitovaný read token zároveň umožnil čítať cudzie rezervácie/kontaktné správy.
   - Vytvor v Settings → API Tokens. Hodnoty nikdy necommitovať — len v `.env` (negitované), vzor v `.env.example`.
 - **Upload security** (`config/plugins.ts`) — `allowedTypes`/`deniedTypes` už obmedzujú nahrávané typy súborov (žiadne spustiteľné/skriptové typy).
-- **Public role permissions** (Settings → Users & Permissions → Roles → Public) — treba nastaviť manuálne po prvom spustení:
-  - `find` + `findOne`: `church`, `announcement`, `concert`, `event`, `page`, `homepage`, `parish-page`, `visit-page`, `contact-page`, `history-page`, `global`
-  - `create` **only** (žiadne find): `reservation`, `excursion`, `contact-message` — a aj to len cez `STRAPI_FORMS_TOKEN`, nie cez anonymný Public prístup, ak je to možné obmedziť len na autentifikované API tokeny v produkcii.
+- **Public role permissions** — `src/index.ts` (`ensurePublicReadPermissions`, `PUBLIC_READABLE_UIDS`) grants these automatically and idempotently on every boot, so a freshly added content type never silently 403s waiting on a manual admin click:
+  - `find` + `findOne`: `church`, `announcement`, `concert`, `event`, `page`
+  - `find` only (single types): `homepage`, `parish-page`, `visit-page`, `contact-page`, `global`, `history-page`, `music-page`
+  - Adding a new publicly-readable content type = add its UID to `PUBLIC_READABLE_UIDS` (and to `singleTypeActions` if it's a single type) in `src/index.ts`, not a manual Settings click.
+  - `create` **only** (žiadne find): `reservation`, `excursion`, `contact-message` — a aj to len cez `STRAPI_FORMS_TOKEN`, nie cez anonymný Public prístup, ak je to možné obmedziť len na autentifikované API tokeny v produkcii. Tieto sa nastavujú ručne (zámerne mimo automatického zoznamu vyššie).
   - Žiadny content type nesmie mať pre Public povolené `update`/`delete`.
 - **Rate limiting** — Community edition nemá vstavaný rate limiter; pri produkčnom nasadení zvážiť reverse proxy (Nginx/Cloudflare) throttling pred `/api/*`, hlavne na `create` endpointy formulárov (ochrana pred spamom).
 - **Richtext / XSS**: `richtext` polia (Announcement.content, Church.about, Concert.description, ...) sú markdown. Frontend ich **musí** renderovať cez `react-markdown` (žiadny `dangerouslySetInnerHTML`) — bezpečné voči injected HTML/skriptom by default.
@@ -227,7 +246,7 @@ Locales sa nezakladajú cez schému, ale cez admin: Settings → Internationaliz
 
 ## On-demand revalidation webhook
 
-Settings → Webhooks → nový webhook pre každý content type (`church`, `announcement`, `concert`, `event`, `page`, `homepage`, `parish-page`, `visit-page`, `contact-page`, `history-page`, `global`):
+Settings → Webhooks → nový webhook pre každý content type (`church`, `announcement`, `concert`, `event`, `page`, `homepage`, `parish-page`, `visit-page`, `contact-page`, `history-page`, `music-page`, `global`):
 - URL: `{FRONTEND_URL}/api/revalidate`
 - Events: `Entry publish`, `Entry unpublish`, `Entry update`, `Entry delete`
 - Header: `x-revalidate-secret: {REVALIDATE_SECRET}` (rovnaká hodnota ako `web/.env` `REVALIDATE_SECRET`)
