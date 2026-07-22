@@ -30,8 +30,9 @@ src/
       services/<name>.ts      ← factories.createCoreService
   components/
     shared/       ← seo, cta, meta-row, mass-time, hours-row, contact-location, faq-item
-    layout/       ← hero-section, quick-link, quick-link-card, stat-item, icon-card, journey-step,
-                     ticket-row, restriction-item, timeline-event, coronation-king, recording-item
+    layout/       ← hero-section, quick-link, quick-link-card, stat-item, journey-step,
+                     ticket-row, restriction-item, timeline-event, coronation-king, recording-item,
+                     venue-feature, venue-space
     sections/     ← rich-text, image-text, cta-banner, gallery, faq, quick-nav,
                      mass-schedule, announcements-preview, churches-preview, contacts
   admin/          ← admin panel customizácie
@@ -70,13 +71,14 @@ Rovnaký princíp platí aj pre `Homepage` a `ParishPage` — obe majú vlastné
 | `layout.quick-link` | icon (string, lucide meno), title, description, ctaLabel, ctaUrl — používa sa v `sections.quick-nav` (Farnosť hub) |
 | `layout.quick-link-card` | icon, title, image (media), href — homepage quick links karty s fotkou na pozadí (Katedrála/Farnosť/Návšteva/Kontakt) |
 | `layout.stat-item` | value, label — jedna položka v štatistickom paneli (napr. „1452“ / „rok založenia katedrály“), používa VisitPage.stats |
-| `layout.icon-card` | icon (enum: ticket/headphones/gift/gallery), title, description — karta v mriežke služieb, používa VisitPage.services |
 | `layout.journey-step` | title, description, image — jeden krok v sekcii „Cesta návštevníka“, používa VisitPage.journeySteps |
 | `layout.ticket-row` | label, price — jeden riadok cenníka vstupného, používa VisitPage.tickets |
 | `layout.restriction-item` | icon (string, jedno emoji), text — jedno pravidlo/obmedzenie, používa VisitPage.restrictions |
 | `layout.timeline-event` | year, title, description — jedna udalosť na časovej osi, používa HistoryPage.timelineEvents |
 | `layout.coronation-king` | name, year — jeden riadok zoznamu korunovaných panovníkov, používa HistoryPage.coronationsKings |
 | `layout.recording-item` | title, year?, type (voľný text, napr. „CD“/„Spevník“), description, photo? — jedna nahrávka/publikácia, používa MusicPage.recordings |
+| `layout.venue-feature` | icon (string, jedno emoji), title, description — jedna vlastnosť/služba v rámci priestoru Martinea, používa `layout.venue-space.features` |
+| `layout.venue-space` | slug (string, stabilný FE kľúč pre prepínanie záložiek — nie Strapi uid), label, description, image?, ctaLabel?/ctaHref? (voliteľné tlačidlo, napr. „Rezervovať sálu“), hours? (repeatable shared.hours-row, voliteľný box s otváracími hodinami), features (repeatable layout.venue-feature) — jeden prepínateľný priestor v sekcii „Čo tu nájdete“, používa VisitPage.spaces |
 
 ### Komponenty — `sections/` (dynamic-zone-eligible, kompozovateľný obsah)
 
@@ -181,7 +183,7 @@ heroEyebrow, heroTitle, heroTitleEmphasis (zvýraznené slovo v titulku), heroSu
 heroCtaPrimaryLabel, heroCtaSecondaryLabel (href oboch tlačidiel je fixný #anchor v kóde, nie CMS pole)
 stats: component repeatable layout.stat-item (štatistický panel, 4 položky)
 martineumEyebrow, martineumTitle, martineumBody (richtext), martineumAwards (string, čiarkou oddelené), martineumImages (media, multiple)
-servicesEyebrow, servicesTitle, services: component repeatable layout.icon-card
+spacesEyebrow, spacesTitle, spaces: component repeatable layout.venue-space (prepínacie záložky „Čo tu nájdete“ — Informačné centrum/MiniGaléria/Sála/Café Martineum)
 journeyEyebrow, journeyTitle, journeySteps: component repeatable layout.journey-step
 cellarsEyebrow, cellarsTitle, cellarsBody (richtext), cellarsImage, cellarsCtaLabel (href fixný v kóde)
 practicalEyebrow, practicalTitle, hours: component repeatable shared.hours-row (reused), tickets: component repeatable layout.ticket-row

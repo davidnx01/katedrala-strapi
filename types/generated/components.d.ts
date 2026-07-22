@@ -32,23 +32,6 @@ export interface LayoutHeroSection extends Struct.ComponentSchema {
   };
 }
 
-export interface LayoutIconCard extends Struct.ComponentSchema {
-  collectionName: 'components_layout_icon_cards';
-  info: {
-    description: 'Karta v mrie\u017Eke slu\u017Eieb (ikona + titulok + popis), napr. na str\u00E1nke N\u00E1v\u0161teva';
-    displayName: 'Karta s ikonou';
-    icon: 'grid';
-  };
-  attributes: {
-    description: Schema.Attribute.Text & Schema.Attribute.Required;
-    icon: Schema.Attribute.Enumeration<
-      ['ticket', 'headphones', 'gift', 'gallery']
-    > &
-      Schema.Attribute.Required;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
-  };
-}
-
 export interface LayoutJourneyStep extends Struct.ComponentSchema {
   collectionName: 'components_layout_journey_steps';
   info: {
@@ -160,6 +143,39 @@ export interface LayoutTimelineEvent extends Struct.ComponentSchema {
     description: Schema.Attribute.Text & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     year: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface LayoutVenueFeature extends Struct.ComponentSchema {
+  collectionName: 'components_layout_venue_features';
+  info: {
+    description: 'Jedna vlastnos\u0165/slu\u017Eba v r\u00E1mci priestoru Martinea (ikona-emoji + titulok + popis)';
+    displayName: 'Vlastnos\u0165 priestoru Martinea';
+    icon: 'grid';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    icon: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface LayoutVenueSpace extends Struct.ComponentSchema {
+  collectionName: 'components_layout_venue_spaces';
+  info: {
+    description: "Jeden prep\u00EDnate\u013En\u00FD priestor/poschodie v sekcii '\u010Co tu n\u00E1jdete' (napr. Informa\u010Dn\u00E9 centrum, MiniGal\u00E9ria, S\u00E1la, Caf\u00E9 Martineum)";
+    displayName: 'Priestor Martinea';
+    icon: 'layout';
+  };
+  attributes: {
+    ctaHref: Schema.Attribute.String;
+    ctaLabel: Schema.Attribute.String;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    features: Schema.Attribute.Component<'layout.venue-feature', true>;
+    hours: Schema.Attribute.Component<'shared.hours-row', true>;
+    image: Schema.Attribute.Media<'images'>;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    slug: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -465,7 +481,6 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'layout.coronation-king': LayoutCoronationKing;
       'layout.hero-section': LayoutHeroSection;
-      'layout.icon-card': LayoutIconCard;
       'layout.journey-step': LayoutJourneyStep;
       'layout.quick-link': LayoutQuickLink;
       'layout.quick-link-card': LayoutQuickLinkCard;
@@ -474,6 +489,8 @@ declare module '@strapi/strapi' {
       'layout.stat-item': LayoutStatItem;
       'layout.ticket-row': LayoutTicketRow;
       'layout.timeline-event': LayoutTimelineEvent;
+      'layout.venue-feature': LayoutVenueFeature;
+      'layout.venue-space': LayoutVenueSpace;
       'sections.announcements-preview': SectionsAnnouncementsPreview;
       'sections.churches-preview': SectionsChurchesPreview;
       'sections.contacts': SectionsContacts;

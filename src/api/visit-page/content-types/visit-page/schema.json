@@ -74,18 +74,18 @@
       "allowedTypes": ["images"],
       "pluginOptions": { "i18n": { "localized": false } }
     },
-    "servicesEyebrow": {
+    "spacesEyebrow": {
       "type": "string",
       "pluginOptions": { "i18n": { "localized": true } }
     },
-    "servicesTitle": {
+    "spacesTitle": {
       "type": "string",
       "pluginOptions": { "i18n": { "localized": true } }
     },
-    "services": {
+    "spaces": {
       "type": "component",
       "repeatable": true,
-      "component": "layout.icon-card",
+      "component": "layout.venue-space",
       "pluginOptions": { "i18n": { "localized": true } }
     },
     "journeyEyebrow": {
