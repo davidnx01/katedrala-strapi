@@ -1930,19 +1930,19 @@ export interface ApiVisitPageVisitPage extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
-    services: Schema.Attribute.Component<'layout.icon-card', true> &
+    spaces: Schema.Attribute.Component<'layout.venue-space', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    servicesEyebrow: Schema.Attribute.String &
+    spacesEyebrow: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    servicesTitle: Schema.Attribute.String &
+    spacesTitle: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

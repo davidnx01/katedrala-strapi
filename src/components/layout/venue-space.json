@@ -1,0 +1,48 @@
+{
+  "collectionName": "components_layout_venue_spaces",
+  "info": {
+    "displayName": "Priestor Martinea",
+    "icon": "layout",
+    "description": "Jeden prepínateľný priestor/poschodie v sekcii 'Čo tu nájdete' (napr. Informačné centrum, MiniGaléria, Sála, Café Martineum)"
+  },
+  "options": {},
+  "attributes": {
+    "slug": {
+      "type": "string",
+      "required": true,
+      "description": "Stabilný kľúč pre frontend (napr. 'info', 'galeria', 'sala', 'cafe') — nie Strapi uid"
+    },
+    "label": {
+      "type": "string",
+      "required": true,
+      "description": "Názov na prepínacej záložke, napr. 'Informačné centrum'"
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "ctaLabel": {
+      "type": "string",
+      "description": "Voliteľné tlačidlo pod popisom, napr. 'Rezervovať sálu' — vyplň spolu s ctaHref, inak sa nezobrazí"
+    },
+    "ctaHref": {
+      "type": "string"
+    },
+    "hours": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.hours-row",
+      "description": "Voliteľný box s otváracími hodinami pod popisom, napr. pri kaviarni"
+    },
+    "features": {
+      "type": "component",
+      "repeatable": true,
+      "component": "layout.venue-feature"
+    }
+  }
+}

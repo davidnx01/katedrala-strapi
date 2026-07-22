@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_layout_venue_features",
+  "info": {
+    "displayName": "Vlastnosť priestoru Martinea",
+    "icon": "grid",
+    "description": "Jedna vlastnosť/služba v rámci priestoru Martinea (ikona-emoji + titulok + popis)"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "string",
+      "required": true,
+      "description": "Jedno emoji, napr. 🎧"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    }
+  }
+}
