@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_shared_staff_members",
+  "info": {
+    "displayName": "Duchovný / pracovník",
+    "icon": "user",
+    "description": "Jeden duchovný alebo pracovník pôsobiaci na kontaktnej lokácii"
+  },
+  "options": {},
+  "attributes": {
+    "role": {
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email"
+    }
+  }
+}

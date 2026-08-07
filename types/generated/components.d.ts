@@ -383,16 +383,21 @@ export interface SharedContactLocation extends Struct.ComponentSchema {
     icon: 'pinMap';
   };
   attributes: {
+    accountHolderName: Schema.Attribute.String;
     address: Schema.Attribute.String & Schema.Attribute.Required;
     city: Schema.Attribute.String;
     description: Schema.Attribute.RichText;
+    dic: Schema.Attribute.String;
     email: Schema.Attribute.Email;
+    emergencyPhone: Schema.Attribute.String;
     hours: Schema.Attribute.Component<'shared.hours-row', true>;
     iban: Schema.Attribute.String;
+    ico: Schema.Attribute.String;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     phone: Schema.Attribute.String;
     photo: Schema.Attribute.Media<'images'>;
     slug: Schema.Attribute.String;
+    staff: Schema.Attribute.Component<'shared.staff-member', true>;
     tags: Schema.Attribute.String;
   };
 }
@@ -503,6 +508,20 @@ export interface SharedSeo extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedStaffMember extends Struct.ComponentSchema {
+  collectionName: 'components_shared_staff_members';
+  info: {
+    description: 'Jeden duchovn\u00FD alebo pracovn\u00EDk p\u00F4sobiaci na kontaktnej lok\u00E1cii';
+    displayName: 'Duchovn\u00FD / pracovn\u00EDk';
+    icon: 'user';
+  };
+  attributes: {
+    email: Schema.Attribute.Email;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    role: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
@@ -537,6 +556,7 @@ declare module '@strapi/strapi' {
       'shared.mass-time': SharedMassTime;
       'shared.meta-row': SharedMetaRow;
       'shared.seo': SharedSeo;
+      'shared.staff-member': SharedStaffMember;
     }
   }
 }

@@ -26,6 +26,10 @@
     "phone": {
       "type": "string"
     },
+    "emergencyPhone": {
+      "type": "string",
+      "description": "Núdzový telefón mimo bežných úradných hodín/agendy."
+    },
     "email": {
       "type": "email"
     },
@@ -44,6 +48,22 @@
     },
     "iban": {
       "type": "string"
+    },
+    "accountHolderName": {
+      "type": "string",
+      "description": "Právny názov účtu — súčasť fakturačných údajov, vyplnené len na jednej lokácii."
+    },
+    "ico": {
+      "type": "string"
+    },
+    "dic": {
+      "type": "string"
+    },
+    "staff": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.staff-member",
+      "description": "Duchovní/pracovníci pôsobiaci na tejto lokácii."
     },
     "tags": {
       "type": "string",
