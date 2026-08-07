@@ -22,7 +22,7 @@ pnpm run start     ← produkčný beh (bez watch)
 src/
   api/            ← content types: church, announcement, concert, event, page, reservation, excursion,
                      contact-message, homepage, parish-page, visit-page, contact-page, history-page,
-                     music-page, global
+                     music-page, global, navigation
     <name>/
       content-types/<name>/schema.json
       controllers/<name>.ts   ← factories.createCoreController (boilerplate, no custom logic)
@@ -32,7 +32,7 @@ src/
     shared/       ← seo, cta, meta-row, mass-time, hours-row, contact-location, faq-item
     layout/       ← hero-section, quick-link, quick-link-card, stat-item, journey-step,
                      ticket-row, restriction-item, timeline-event, coronation-king, recording-item,
-                     venue-feature, venue-space
+                     venue-feature, venue-space, nav-link, footer-column
     sections/     ← rich-text, image-text, cta-banner, gallery, faq, quick-nav,
                      mass-schedule, announcements-preview, churches-preview, contacts
   admin/          ← admin panel customizácie
@@ -79,6 +79,8 @@ Rovnaký princíp platí aj pre `Homepage` a `ParishPage` — obe majú vlastné
 | `layout.recording-item` | title, year?, type (voľný text, napr. „CD“/„Spevník“), description, photo? — jedna nahrávka/publikácia, používa MusicPage.recordings |
 | `layout.venue-feature` | icon (string, jedno emoji), title, description — jedna vlastnosť/služba v rámci priestoru Martinea, používa `layout.venue-space.features` |
 | `layout.venue-space` | slug (string, stabilný FE kľúč pre prepínanie záložiek — nie Strapi uid), label, description, image?, ctaLabel?/ctaHref? (voliteľné tlačidlo, napr. „Rezervovať sálu“), hours? (repeatable shared.hours-row, voliteľný box s otváracími hodinami), features (repeatable layout.venue-feature) — jeden prepínateľný priestor v sekcii „Čo tu nájdete“, používa VisitPage.spaces |
+| `layout.nav-link` | label, href, icon? (string, lucide meno — len pre headerLinks, v footeri sa ignoruje) — jeden odkaz v hlavnej navigácii alebo vo footeri |
+| `layout.footer-column` | title, links (repeatable layout.nav-link) — jeden stĺpec odkazov vo footeri |
 
 ### Komponenty — `sections/` (dynamic-zone-eligible, kompozovateľný obsah)
 
@@ -173,7 +175,14 @@ footerTagline: text, localized — popisný text vo footeri pod logom
 diocese: string, localized — napr. "Bratislavská arcidiecéza", spodný riadok footera
 seo: component shared.seo, localized — fallback SEO pre stránky bez vlastného seo poľa
 ```
-Navigácia (5 hlavných + footer odkazy) a ich `href`-y zostávajú **fixné v kóde** (`web/CLAUDE.md` Navigácia sekcia) — mení sa len obsah/text cez i18n, nie štruktúra. Kontaktné údaje vo footeri (adresa/telefón/email) sa pri napájaní na Strapi preberajú z `ContactPage.locations[0]`, nie z vlastného poľa — nekopíruj tie isté údaje na 2 miesta.
+Navigácia (header, mobilné menu, footer) sa **kompletne ťahá zo Strapi** cez `Navigation` single type (pozri nižšie) — nie je fixná v kóde. Kontaktné údaje vo footeri (adresa/telefón/email) sa pri napájaní na Strapi preberajú z `ContactPage.locations[0]`, nie z vlastného poľa — nekopíruj tie isté údaje na 2 miesta.
+
+**Navigation** (`api::navigation.navigation`) — jediný zdroj pravdy pre header, mobilné menu aj footer odkazy. `draftAndPublish: false` (rovnako ako `Global` — vždy live).
+```
+headerLinks: component repeatable layout.nav-link — hlavná navigácia (desktop header + mobilné menu, rovnaký zoznam pre oba)
+footerColumns: component repeatable layout.footer-column — stĺpce odkazov vo footeri (title + links: repeatable layout.nav-link)
+```
+`layout.nav-link.icon` (voliteľné, len pre `headerLinks`) je lucide meno použité v mobilnom menu (`web/components/layout/MobileMenu.tsx` má vlastný `ICON_MAP`, pri nerozpoznanom mene padne na `Link2`) — vo footeri sa ignoruje. Web má fallback (hardcoded pole + i18n text) pre prípad, že `Navigation` v Strapi ešte nemá obsah — web preto nikdy nezostane bez navigácie.
 
 **ParishPage** (`/farnost`) — `heroEyebrow`, `heroTitle`, `heroImage` + `sections` dynamic zone [quick-nav, announcements-preview, image-text, rich-text, faq] + `seo`. Sobáš/Krst/Lectio divina/Adorácia = `image-text` položky v `sections`.
 
@@ -233,7 +242,7 @@ Všetky content types majú `pluginOptions.i18n.localized: true` na úrovni typu
 - **Upload security** (`config/plugins.ts`) — `allowedTypes`/`deniedTypes` už obmedzujú nahrávané typy súborov (žiadne spustiteľné/skriptové typy).
 - **Public role permissions** — `src/index.ts` (`ensurePublicReadPermissions`, `PUBLIC_READABLE_UIDS`) grants these automatically and idempotently on every boot, so a freshly added content type never silently 403s waiting on a manual admin click:
   - `find` + `findOne`: `church`, `announcement`, `concert`, `event`, `page`
-  - `find` only (single types): `homepage`, `parish-page`, `visit-page`, `contact-page`, `global`, `history-page`, `music-page`
+  - `find` only (single types): `homepage`, `parish-page`, `visit-page`, `contact-page`, `global`, `history-page`, `music-page`, `navigation`
   - Adding a new publicly-readable content type = add its UID to `PUBLIC_READABLE_UIDS` (and to `singleTypeActions` if it's a single type) in `src/index.ts`, not a manual Settings click.
   - `create` **only** (žiadne find): `reservation`, `excursion`, `contact-message` — a aj to len cez `STRAPI_FORMS_TOKEN`, nie cez anonymný Public prístup, ak je to možné obmedziť len na autentifikované API tokeny v produkcii. Tieto sa nastavujú ručne (zámerne mimo automatického zoznamu vyššie).
   - Žiadny content type nesmie mať pre Public povolené `update`/`delete`.
@@ -248,7 +257,7 @@ Locales sa nezakladajú cez schému, ale cez admin: Settings → Internationaliz
 
 ## On-demand revalidation webhook
 
-Settings → Webhooks → nový webhook pre každý content type (`church`, `announcement`, `concert`, `event`, `page`, `homepage`, `parish-page`, `visit-page`, `contact-page`, `history-page`, `music-page`, `global`):
+Settings → Webhooks → nový webhook pre každý content type (`church`, `announcement`, `concert`, `event`, `page`, `homepage`, `parish-page`, `visit-page`, `contact-page`, `history-page`, `music-page`, `global`, `navigation`):
 - URL: `{FRONTEND_URL}/api/revalidate`
 - Events: `Entry publish`, `Entry unpublish`, `Entry update`, `Entry delete`
 - Header: `x-revalidate-secret: {REVALIDATE_SECRET}` (rovnaká hodnota ako `web/.env` `REVALIDATE_SECRET`)

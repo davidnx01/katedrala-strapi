@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_layout_footer_columns",
+  "info": {
+    "displayName": "Stĺpec vo footeri",
+    "icon": "bulletList",
+    "description": "Jeden stĺpec odkazov vo footeri (napr. 'Farnosť', 'Návšteva', 'Ďalšie')"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "layout.nav-link"
+    }
+  }
+}

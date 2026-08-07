@@ -13,6 +13,19 @@ export interface LayoutCoronationKing extends Struct.ComponentSchema {
   };
 }
 
+export interface LayoutFooterColumn extends Struct.ComponentSchema {
+  collectionName: 'components_layout_footer_columns';
+  info: {
+    description: "Jeden st\u013Apec odkazov vo footeri (napr. 'Farnos\u0165', 'N\u00E1v\u0161teva', '\u010Eal\u0161ie')";
+    displayName: 'St\u013Apec vo footeri';
+    icon: 'bulletList';
+  };
+  attributes: {
+    links: Schema.Attribute.Component<'layout.nav-link', true>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface LayoutHeroSection extends Struct.ComponentSchema {
   collectionName: 'components_layout_hero_sections';
   info: {
@@ -43,6 +56,20 @@ export interface LayoutJourneyStep extends Struct.ComponentSchema {
     description: Schema.Attribute.Text & Schema.Attribute.Required;
     image: Schema.Attribute.Media<'images'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface LayoutNavLink extends Struct.ComponentSchema {
+  collectionName: 'components_layout_nav_links';
+  info: {
+    description: 'Jeden odkaz v hlavnej navig\u00E1cii alebo vo footeri';
+    displayName: 'Naviga\u010Dn\u00FD odkaz';
+    icon: 'link';
+  };
+  attributes: {
+    href: Schema.Attribute.String & Schema.Attribute.Required;
+    icon: Schema.Attribute.String;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -480,8 +507,10 @@ declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
       'layout.coronation-king': LayoutCoronationKing;
+      'layout.footer-column': LayoutFooterColumn;
       'layout.hero-section': LayoutHeroSection;
       'layout.journey-step': LayoutJourneyStep;
+      'layout.nav-link': LayoutNavLink;
       'layout.quick-link': LayoutQuickLink;
       'layout.quick-link-card': LayoutQuickLinkCard;
       'layout.recording-item': LayoutRecordingItem;

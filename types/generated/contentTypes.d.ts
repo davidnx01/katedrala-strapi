@@ -1508,6 +1508,50 @@ export interface ApiMusicPageMusicPage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiNavigationNavigation extends Struct.SingleTypeSchema {
+  collectionName: 'navigations';
+  info: {
+    description: 'Hlavn\u00E1 navig\u00E1cia (header, aj mobiln\u00E9 menu) a odkazy vo footeri \u2014 jedin\u00FD zdroj pravdy pre cel\u00FD web';
+    displayName: 'Navig\u00E1cia';
+    pluralName: 'navigations';
+    singularName: 'navigation';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    footerColumns: Schema.Attribute.Component<'layout.footer-column', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    headerLinks: Schema.Attribute.Component<'layout.nav-link', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::navigation.navigation'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPagePage extends Struct.CollectionTypeSchema {
   collectionName: 'pages';
   info: {
@@ -2494,6 +2538,7 @@ declare module '@strapi/strapi' {
       'api::history-page.history-page': ApiHistoryPageHistoryPage;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::music-page.music-page': ApiMusicPageMusicPage;
+      'api::navigation.navigation': ApiNavigationNavigation;
       'api::page.page': ApiPagePage;
       'api::parish-page.parish-page': ApiParishPageParishPage;
       'api::reservation.reservation': ApiReservationReservation;

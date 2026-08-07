@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "navigations",
+  "info": {
+    "singularName": "navigation",
+    "pluralName": "navigations",
+    "displayName": "Navigácia",
+    "description": "Hlavná navigácia (header, aj mobilné menu) a odkazy vo footeri — jediný zdroj pravdy pre celý web"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": { "localized": true }
+  },
+  "attributes": {
+    "headerLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "layout.nav-link",
+      "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "footerColumns": {
+      "type": "component",
+      "repeatable": true,
+      "component": "layout.footer-column",
+      "pluginOptions": { "i18n": { "localized": true } }
+    }
+  }
+}

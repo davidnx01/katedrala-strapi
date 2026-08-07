@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_layout_nav_links",
+  "info": {
+    "displayName": "Navigačný odkaz",
+    "icon": "link",
+    "description": "Jeden odkaz v hlavnej navigácii alebo vo footeri"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "href": {
+      "type": "string",
+      "required": true
+    },
+    "icon": {
+      "type": "string",
+      "description": "Voliteľné, len pre hlavnú navigáciu — lucide meno použité v mobilnom menu (napr. 'home', 'church', 'compass', 'mail'). Vo footeri sa ignoruje."
+    }
+  }
+}
