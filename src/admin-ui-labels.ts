@@ -152,6 +152,12 @@ export const FIELD_LABELS: Record<string, string> = {
   category: "Kategória (farba v kalendári)",
   timeFrom: "Čas od",
   timeTo: "Čas do",
+  emergencyPhone: "Núdzový telefón",
+  accountHolderName: "Právny názov účtu",
+  ico: "IČO",
+  dic: "DIČ",
+  staff: "Duchovní a pracovníci",
+  role: "Funkcia",
 };
 
 /** Per-content-type/component overrides where the same field name means something more specific. */
