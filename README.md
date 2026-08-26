@@ -48,3 +48,5 @@ pri každom štarte Strapi — netreba nič klikať v administrácii.
 6. (Voliteľné, ale odporúčané) V administrácii nastav webhook
    (Settings → Webhooks), aby sa zmeny obsahu na webe prejavili okamžite —
    presný postup je v `CLAUDE.md` sekcia "On-demand revalidation webhook".
+
+<!-- Overenie deploy webhooku: 2026-08-26 -->
