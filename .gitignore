@@ -64,12 +64,8 @@ $RECYCLE.BIN/
 ############################
 # Logs and databases
 ############################
-# Dev SQLite DB (.tmp/data.db) is intentionally committed so content
-# (announcements, churches, pages, ...) travels with `git pull` between
-# machines instead of requiring a manual strapi export/import each time.
 
 .tmp/*
-!.tmp/data.db
 *.log
 *.sql
 
