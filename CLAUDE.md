@@ -257,15 +257,6 @@ Locales sa nezakladajú cez schému, ale cez admin: Settings → Internationaliz
 1. Over, že `sk` je nastavené ako default locale (Strapi ho typicky seeduje ako `en` — treba pridať `sk` a nastaviť ako default, príp. zmazať `en` a pridať nanovo v správnom poradí, alebo len explicitne zvoliť `sk` ako default v UI).
 2. Pridaj `en` ako druhý locale.
 
-## On-demand revalidation webhook
-
-Settings → Webhooks → nový webhook pre každý content type (`church`, `announcement`, `concert`, `event`, `page`, `homepage`, `parish-page`, `visit-page`, `contact-page`, `history-page`, `music-page`, `global`, `navigation`):
-- URL: `{FRONTEND_URL}/api/revalidate`
-- Events: `Entry publish`, `Entry unpublish`, `Entry update`, `Entry delete`
-- Header: `x-revalidate-secret: {REVALIDATE_SECRET}` (rovnaká hodnota ako `web/.env` `REVALIDATE_SECRET`)
-
-Toto invaliduje Next.js ISR cache okamžite po publikovaní namiesto čakania na časový `revalidate` interval (pozri `web/CLAUDE.md` revalidačné časy — tie ostávajú ako fallback).
-
 ## Konvencie
 
 - Každý content type má `locale` (i18n plugin zapnutý) — SK je default locale.
