@@ -41,6 +41,10 @@
       "component": "shared.seo",
       "description": "Fallback SEO pre stránky bez vlastného seo poľa",
       "pluginOptions": { "i18n": { "localized": true } }
+    },
+    "deployTestField": {
+      "type": "string",
+      "description": "DOCASNE testovacie pole na overenie, ci deploy skutocne restartuje Strapi (zmena z 2026-10-18). Po overeni zmazat."
     }
   }
 }
