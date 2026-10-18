@@ -33,6 +33,13 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
   },
   upload: {
     config: {
+      // Default `true` runs every upload (including the original file, not
+      // just the responsive thumbnails) through sharp before storing it,
+      // which strips all EXIF/IPTC/XMP metadata (author, copyright, keywords).
+      // Off, so the original file Strapi stores keeps the metadata exactly
+      // as uploaded; responsive `formats.*` derivatives are still generated
+      // normally and remain metadata-free (expected, they're thumbnails).
+      sizeOptimization: false,
       security: {
         allowedTypes: allowedMediaTypes,
         deniedTypes: deniedExecutableTypes,

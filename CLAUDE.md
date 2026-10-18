@@ -2,6 +2,8 @@
 
 Headless CMS pre obsah webu. Frontend (`web/`) konzumuje REST API výhradne cez `web/lib/api.ts` (server-only). Táto stránka je zdrojom pravdy pre presné Strapi schémy (komponenty, kolekcie, single types) — `web/CLAUDE.md` dokumentuje len frontendový kontrakt (TS typy, `lib/api.ts` funkcie, bezpečnosť).
 
+> **Klientsky kontext:** `~/Documents/Obsidian/Poznámky/webdavid/Katedrála sv. Martina/Katedrála sv. Martina.md`
+
 ## Tech stack
 
 - Strapi 5 (Community edition), TypeScript
