@@ -26,9 +26,10 @@ pnpm run develop
 ```
 
 Admin panel beží na `http://localhost:1337/admin` — pri prvom spustení si
-vypýta vytvorenie admin účtu. Obsahová databáza (`.tmp/data.db`) je súčasťou
-repozitára — kostoly, oznamy, stránky a ostatný obsah sú tam už vyplnené,
-netreba nič zadávať odznova.
+vypýta vytvorenie admin účtu. Lokálna vývojová databáza (`.tmp/data.db`) **nie je
+v gite** (je v `.gitignore`) a **nie je produkčná databáza** — zmeny v nej sa na
+produkciu neprenesú. Obsah na produkcii (`api.katedralabratislava.sk`) sa spravuje
+priamo v jeho administrácii.
 
 Práva pre verejné čítanie obsahu (Public role) sa nastavujú **automaticky**
 pri každom štarte Strapi — netreba nič klikať v administrácii.
@@ -45,8 +46,12 @@ pri každom štarte Strapi — netreba nič klikať v administrácii.
    odkomentovať.
 5. V administrácii (Settings → Internationalization) over, že je nastavené
    `sk` ako predvolený jazyk a `en` ako druhý — viď `CLAUDE.md`.
-6. (Voliteľné, ale odporúčané) V administrácii nastav webhook
-   (Settings → Webhooks), aby sa zmeny obsahu na webe prejavili okamžite —
-   presný postup je v `CLAUDE.md` sekcia "On-demand revalidation webhook".
+6. Pre kontaktný formulár vytvor v administrácii API token `STRAPI_FORMS_TOKEN`
+   (Settings → API Tokens, typ **Custom**, jediné právo `create` na
+   `contact-message`) a jeho hodnotu daj do `.env` webu.
+7. Webhook na obnovu webu zatiaľ netreba — web nepoužíva cache (každý request
+   číta čerstvé dáta). Pri zavedení cache pribudne webhook podľa plánu v
+   `web/CLAUDE.md`.
 
-<!-- Overenie deploy webhooku: 2026-08-26 -->
+Pozn.: deploy tohto CMS je manuálny (`git pull`, `pnpm run build`, reštart Node
+procesu) — push do `main` sám nič nenasadí.

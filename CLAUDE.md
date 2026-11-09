@@ -2,12 +2,12 @@
 
 Headless CMS pre obsah webu. Frontend (`web/`) konzumuje REST API výhradne cez `web/lib/api.ts` (server-only). Táto stránka je zdrojom pravdy pre presné Strapi schémy (komponenty, kolekcie, single types) — `web/CLAUDE.md` dokumentuje len frontendový kontrakt (TS typy, `lib/api.ts` funkcie, bezpečnosť).
 
-> **Klientsky kontext:** `~/Documents/Obsidian/Poznámky/webdavid/Katedrála sv. Martina/Katedrála sv. Martina.md`
+> **Klientsky kontext:** `~/Documents/Obsidian/Poznámky/Darwon/Klienti/Katedrála sv. Martina/Katedrála sv. Martina.md`
 
 ## Tech stack
 
 - Strapi 5 (Community edition), TypeScript
-- SQLite (`better-sqlite3`) — vývoj/dev only; produkcia bude potrebovať Postgres/MySQL config v `config/database.ts`
+- SQLite (`better-sqlite3`) — vývoj/dev only; produkcia bude potrebovať Postgres/MySQL config v `config/database.ts`. Súbor `.tmp/data.db` je gitignorovaný a **nie je produkčná databáza**.
 - pnpm ako package manager
 
 ## Príkazy
@@ -254,6 +254,8 @@ Všetky content types majú `pluginOptions.i18n.localized: true` na úrovni typu
 ## i18n — manuálne nastavenie (raz po prvom spustení)
 
 Locales sa nezakladajú cez schému, ale cez admin: Settings → Internationalization
+Nový jazyk najprv povoľ na webe (`pnpm i18n:add <kód>` vo `web/`), potom ho pridaj tu.
+
 1. Over, že `sk` je nastavené ako default locale (Strapi ho typicky seeduje ako `en` — treba pridať `sk` a nastaviť ako default, príp. zmazať `en` a pridať nanovo v správnom poradí, alebo len explicitne zvoliť `sk` ako default v UI).
 2. Pridaj `en` ako druhý locale.
 
@@ -264,3 +266,11 @@ Locales sa nezakladajú cez schému, ale cez admin: Settings → Internationaliz
 - Media polia (`photo`, `gallery`, `qrCode*`) používajú Strapi Media Library — v produkcii zvážiť upload provider (S3/Cloudinary) namiesto lokálneho disku.
 - Zmena schémy content typu = reštart `pnpm run develop` (auto-reload cez watch mode).
 - Pridanie novej flexibilnej stránky (Kapitulská, Martineum, ...) = nový záznam v `Page` kolekcii cez admin, **nie** nová schéma.
+
+## Stav a známe medzery
+
+- Kolekcia `Page` je v Strapi hotová, ale **web ju zatiaľ nevykresľuje** (`web/app/[locale]/[...rest]/page.tsx` je len 404). Nezačínaj do nej nahadzovať obsah, kým sa frontend nenapojí.
+- `Reservation` a `Excursion` zatiaľ nikto nezapisuje (rezervácie čakajú na rozhodnutie o MainSquare, exkurzie sa riešia externým odkazom). `ContactMessage` zapisuje kontaktný formulár cez `STRAPI_FORMS_TOKEN`; oprávnenie `create` sa nastavuje ručne v Settings → API Tokens (nie cez `PUBLIC_READABLE_UIDS`).
+- Média v Media Library nemajú alt texty — treba doplniť (Media Library → každý súbor → Alternative text).
+- V footeri sa už nepoužívajú odkazy „Ochrana údajov“/„Privacy“ z `Navigation` — web ich vykresľuje sám (pätička s odkazmi na `/ochrana-udajov`, `/cookies` a „Nastavenia cookies“). Ak ich v produkčnom Strapi ešte máte s `href: "#"`, zmažte ich, inak sa zobrazia dvakrát.
+- Webhook na obnovu webu zatiaľ neexistuje (web nepoužíva cache); plán je v `web/CLAUDE.md`.
