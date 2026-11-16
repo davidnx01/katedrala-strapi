@@ -69,7 +69,7 @@ Rovnaký princíp platí aj pre `Homepage` a `ParishPage` — obe majú vlastné
 
 | Komponent | Polia |
 |---|---|
-| `layout.hero-section` | eyebrow, titleLine1, titleLine2, titleEmphasis (3 časti nadpisu — riadkovanie + tučné zvýraznenie), subtitle, images (media, multiple — 2+ fotky pre Ken Burns crossfade slideshow), ctaPrimary (shared.cta), ctaSecondary (shared.cta) |
+| `layout.hero-section` | eyebrow, titleLine1, titleLine2, titleEmphasis (3 časti nadpisu — riadkovanie + tučné zvýraznenie), subtitle, images (media, multiple — 2+ fotky pre Ken Burns crossfade slideshow), videos (media, multiple, len videá — krátke MP4/H.264 720p klipy bez zvuku; web ich strieda s fotkami fotka → video → fotka…, potom už len videá), ctaPrimary (shared.cta), ctaSecondary (shared.cta) |
 | `layout.quick-link` | icon (string, lucide meno), title, description, ctaLabel, ctaUrl — používa sa v `sections.quick-nav` (Farnosť hub) |
 | `layout.quick-link-card` | icon, title, image (media), href — homepage quick links karty s fotkou na pozadí (Katedrála/Farnosť/Návšteva/Kontakt) |
 | `layout.stat-item` | value, label — jedna položka v štatistickom paneli (napr. „1452“ / „rok založenia katedrály“), používa VisitPage.stats |

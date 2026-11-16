@@ -40,6 +40,16 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
       // as uploaded; responsive `formats.*` derivatives are still generated
       // normally and remain metadata-free (expected, they're thumbnails).
       sizeOptimization: false,
+      // Uploaded files get a content hash in their name (`foo_8bf7529f45.mp4`),
+      // so a given URL never changes content — browsers may cache it for a
+      // year instead of revalidating on every visit (default is max-age=0).
+      // Matters most for the homepage hero videos.
+      providerOptions: {
+        localServer: {
+          maxage: 365 * 24 * 60 * 60 * 1000,
+          immutable: true,
+        },
+      },
       security: {
         allowedTypes: allowedMediaTypes,
         deniedTypes: deniedExecutableTypes,

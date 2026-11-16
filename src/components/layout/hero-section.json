@@ -33,7 +33,14 @@
       "multiple": true,
       "allowedTypes": ["images"],
       "required": true,
-      "description": "2+ fotky pre Ken Burns crossfade slideshow — striedajú sa každých 6 sekúnd"
+      "description": "2+ fotky pre Ken Burns crossfade slideshow — striedajú sa každé 4 sekundy"
+    },
+    "videos": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["videos"],
+      "required": false,
+      "description": "Krátke video klipy (MP4/H.264, 720p, bez zvuku, ideálne < 1 MB). Striedajú sa s fotkami: fotka → video → fotka → video…, keď fotky dôjdu, idú už len videá."
     },
     "ctaPrimary": {
       "type": "component",
